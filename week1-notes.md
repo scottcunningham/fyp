@@ -2,11 +2,11 @@
 
 ## Crypto
 - Homomorphic encryption
-- Secure multi-party encryption in general (SMP)
     - these 2 might not suffice: https://itsec.rwth-aachen.de/theses/evaluating-the-use-of-fully-homomorphic-encryption-in-secure-multi-party-computation
-    - more info here
+- Secure multi-party encryption in general (SMP)
 - Functional encryption
-    - process over encrypted data such that key lets you evaluate subset of data
+    - pub/priv crypto, where multiple private keys can exist
+    - means multiple people can decrypt the data
 
 ## Escrow
 Like third party which can control data, determines revocation etc

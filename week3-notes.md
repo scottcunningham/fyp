@@ -16,6 +16,7 @@
 - Censorship on the internet is a "Bad Thing" and should be avoided
 - The network should make possible political dissidents etc to post
 - Some level of censorship is useful: eg, for hate speech/child pornography
+- Majority rule on censorship seems like a good solution
 
 ## Research questions
 
