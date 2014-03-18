@@ -1,0 +1,30 @@
+#######################################################################################################
+#######################################################################################################
+
+      (1)
+________________
+|               |      (2)
+| f i r e f o x |_________________            (3)
+|               | scott:// plugin |    request for <uuid>     _____________    (4)
+|_______________|_________________| <-------websocket -----> |             | <======>  (other nodes)
+                       (6)              site data (html)     |             |   (4)
+                                              (5)            | python node | <======>     DHT 
+                                                             |  ("proxy")  |   (4)
+                                                             |_____________| <======>  (other nodes)
+                                                                               (4)
+# Flow chart
+
+1. Browser sees request for scott://some_uuid_here
+2. Browser passes request on to scott:// protocol browser plugin
+    - Plugin parses, extracts website UUID from request
+3. Plugin opens websocket to locally running "proxy" node
+    - Sends JSON request for UUID over websocket
+4. Python proxy communicates with DHT and retrieves site data
+    - This will be explained more thoroughly later
+5. Python proxy sends site data back to plugin
+6. Plugin renders HTML in browser
+
+#######################################################################################################
+#######################################################################################################
+
+

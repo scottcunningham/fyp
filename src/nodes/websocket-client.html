@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <script type="text/javascript">
+         var socket = null;
+         var isopen = false;
+         window.onload = function() {
+
+            socket = new WebSocket("ws://127.0.0.1:9000");
+            socket.binaryType = "arraybuffer";
+
+            socket.onopen = function() {
+               console.log("Connected!");
+               isopen = true;
+            }
+
+            socket.onmessage = function(e) {
+               if (typeof e.data == "string") {
+                  console.log("Text message received: " + e.data);
+               } else {
+                  var arr = new Uint8Array(e.data);
+                  var hex = '';
+                  for (var i = 0; i < arr.length; i++) {
+                     hex += ('00' + arr[i].toString(16)).substr(-2);
+                  }
+                  console.log("Binary message received: " + hex);
+               }
+               update(e.data)
+            }
+
+            socket.onclose = function(e) {
+               console.log("Connection closed.");
+               socket = null;
+               isopen = false;
+            }
+         };
+
+         function update(msg) {
+           document.getElementById("results").innerHTML = msg;
+         }
+
+         function sendText() {
+            if (isopen) {
+               text = document.getElementById("search_term").value;
+               socket.send(text);
+               console.log("Text message sent.");
+               document.getElementById("key").innerHtml = "Results for: " + text;
+            } else {
+               console.log("Connection not opened.")
+            }
+         };
+      </script>
+   </head>
+     
+  <body>
+      <form action="">
+         <p>Search for: <input type="text" id="search_term" name="search_term"><br></p>
+      </form>
+
+      <button onclick='sendText();'>Send Text Message</button>
+      <p>Open your browser's JavaScript console to see what's happening.</p>
+ 
+      <div id="key"></div>
+      <div id="results">
+        <p>Results will appear here once you search for something.</p>
+      </div>
+
+  </body>
+</html>
