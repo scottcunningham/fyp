@@ -8,8 +8,6 @@ NUM_NODES = 10
 PORT_START = 3000
 HOST = "localhost"
 
-nodes = []
-
 def create_test_network(num_nodes, host, port_start):
     node = DHT(host, port_start)
     new_nodes = [node]
@@ -31,7 +29,6 @@ if __name__ == '__main__':
         num_nodes = sys.argv[1]
         port_start = sys.argv[2]
 
-    global nodes
     nodes = create_test_network(NUM_NODES, "localhost", PORT_START)
     print "Done!"
 

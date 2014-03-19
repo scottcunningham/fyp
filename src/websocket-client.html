@@ -39,10 +39,23 @@
            document.getElementById("results").innerHTML = msg;
          }
 
-         function sendText() {
+         function publish() {
+            if (isopen) {
+               text = document.getElementById("content").value;
+               message = { type : "publish", body : text }
+               socket.send(JSON.stringify(message));
+               console.log("Text message sent.");
+               document.getElementById("notification").innerHtml = "Sent request to publish your content.";
+            } else {
+               console.log("Connection not opened.")
+            }
+         };
+
+        function sendText() {
             if (isopen) {
                text = document.getElementById("search_term").value;
-               socket.send(text);
+               message = { type : "lookup", body : text }
+               socket.send(JSON.stringify(message));
                console.log("Text message sent.");
                document.getElementById("key").innerHtml = "Results for: " + text;
             } else {
@@ -50,20 +63,53 @@
             }
          };
       </script>
+      <style>
+         #bottom
+         {
+             font-family: monospace;
+         }
+         #top
+         {
+            font-family: monospace;
+            text-align:center;
+            color: white;
+            background-color: grey;
+            border-style:solid;
+            border-color:#000000 #000000;
+         } 
+         .space {
+             line-height: .3 em;
+         } 
+      </style>
    </head>
      
   <body>
+    <div id="top">
+      
+      <h1>fypweb</h1>
+      
       <form action="">
-         <p>Search for: <input type="text" id="search_term" name="search_term"><br></p>
+         <p>Webpage id: <input type="text" id="search_term" name="search_term"><br></p>
       </form>
-
-      <button onclick='sendText();'>Send Text Message</button>
-      <p>Open your browser's JavaScript console to see what's happening.</p>
+      <button onclick='sendText();'>Lookup webpage</button>
  
+      <form action="">
+         <p>Publish: <input type="text" id="content" name="content"><br></p>
+      </form>
+      <button onclick='publish();'>Publish content</button>
+      <p id="notification">Add something to the network.</p>
+    
       <div id="key"></div>
+    </div>
+    
+    <p class="spacer"> </p>
+
+    <div id="bottom">
+      
       <div id="results">
         <p>Results will appear here once you search for something.</p>
       </div>
-
+    
+    </div>
   </body>
 </html>

@@ -21,3 +21,12 @@ if __name__ == '__main__':
     print "Joining network"
     node = join_network(host, port, boot_host, boot_port)
     print "Done"
+
+    while True:
+        k = raw_input("query >>> ")
+        try:
+            v = node[k]
+            print "results for: {}".format(k)
+            print v
+        except KeyError:
+            print "no results for: {}".format(k)
