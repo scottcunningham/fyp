@@ -37,39 +37,36 @@ class MyServerProtocol(WebSocketServerProtocol):
 
       print "Got message: {}".format(raw_message)
       
-      key = message["key"]
-      
       if message["type"] == "downvote":
+          key = message["key"]
           print "downvote", key
           node.downvote(key)
 
       if message["type"] == "publish":
           print "publish req"
           content = str(message["body"]) #.encode('utf8', errors='ignore')
-          key = str(key) #).encode('utf8', errors='ignore')
-          print "hash is", key
           print "content is", content
           print "storing now"
           content = json.dumps(content)
-          node.publish(key, content)
+          key = node.publish(content)
           self.sendMessage(json.dumps({"type" : "publish", "error" : False, "value" : key}), False)
           print "stored"
 
       elif message["type"] == "lookup":
+          key = message["key"]
           print "lookup"
           try:
             print "Looking up key {}".format(key)
             value = node.retrieve(key)
             value = json.loads(value)
             print "value is", value
-            self.sendMessage(json.dumps({"type" : "lookup", "error" : False, "value" : value}), isBinary)
-     
+            self.sendMessage(json.dumps({"type" : "lookup", "error" : False, "value" : value, "key" : key}), isBinary)
           except KeyError:
             print "Key not found in DHT"
             self.sendMessage(json.dumps({"type" : "lookup", "error" : True, "value" : "key not found!"}), False)
           except ValueError:
             print "hmac failed"
-            self.sendMessage(json.dumps({"type" : "lookup", "error" : True, "value" : "node can't verify HMAC - text was messed with!"}), False)
+            self.sendMessage(json.dumps({"type" : "lookup", "error" : True, "value" : "node can't verify message HMAC!"}), False)
 
    def onClose(self, wasClean, code, reason):
      if wasClean:

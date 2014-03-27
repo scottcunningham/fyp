@@ -54,7 +54,7 @@
            }
 
            if (obj.type == "lookup") {
-               document.getElementById("msg").innerHTML = "<p>Results:</p>";
+               document.getElementById("msg").innerHTML = "<p>Results for key: " + obj.key + "</p>";
                document.getElementById("results").innerHTML = obj.value;
            }
          }
@@ -67,8 +67,9 @@
          function publish() {
             if (isopen) {
                text = document.getElementById("content").value;
-               k = document.getElementById("key").value;
-               message = { key : k, type : "publish", body : text }
+               // k = document.getElementById("key").value;
+               // message = { key : k, type : "publish", body : text }
+               message = { type : "publish", body : text }
                socket.send(JSON.stringify(message));
                console.log("Text message sent.");
                document.getElementById("notification").innerHtml = "Sent request to publish your content.";
@@ -133,7 +134,7 @@
       
       <h2>Put</h2>
       <form action="">
-         <p>Key: <input type="text" id="key" name="key"><br></p>
+          <!-- <p>Key: <input type="text" id="key" name="key"><br></p> -->
          <p>Text content: <input type="text" id="content" name="content"><br></p>
       </form>
       <p>Or upload file:</p>
