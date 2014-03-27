@@ -64,14 +64,12 @@ class MyServerProtocol(WebSocketServerProtocol):
             print "value is", value
             self.sendMessage(json.dumps({"type" : "lookup", "error" : False, "value" : value}), isBinary)
      
-          except Exception as e:
-            if isinstance(e, KeyError):
-                print "Key not found in DHT"
-                self.sendMessage(json.dumps({"type" : "lookup", "error" : True, "value" : "key not found!"}), False)
-            #'''elif isinstance(e, ValueError):
-            #     self.sendMessage(json.dumps({"type" : "lookup", "error" : True, "value" : "node can't decrypt!"}), False)
-            else:
-                raise e
+          except KeyError:
+            print "Key not found in DHT"
+            self.sendMessage(json.dumps({"type" : "lookup", "error" : True, "value" : "key not found!"}), False)
+          except ValueError:
+            print "hmac failed"
+            self.sendMessage(json.dumps({"type" : "lookup", "error" : True, "value" : "node can't verify HMAC - text was messed with!"}), False)
 
    def onClose(self, wasClean, code, reason):
      if wasClean:
