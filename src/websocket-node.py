@@ -7,7 +7,6 @@ from pydht import DHT
 import sys
 import json
 import tempfile
-from join_network import get_keys
 
 from twisted.python import log
 from twisted.internet import reactor
@@ -17,8 +16,7 @@ PORT_START = 3001
 HOST = "localhost"
 
 print "Creating node, joining network"
-keys = get_keys("keys")
-node = DHT("localhost", PORT_START + 50, boot_host=HOST, boot_port=PORT_START- 1, keys=keys)
+node = DHT("localhost", PORT_START + 50, boot_host=HOST, boot_port=PORT_START- 1)
 print "Done."
 
 class MyServerProtocol(WebSocketServerProtocol):
@@ -27,11 +25,11 @@ class MyServerProtocol(WebSocketServerProtocol):
        return tempfile.NamedTemporaryFile()
 
    def onConnect(self, request):
-      print("Client connecting: {}".format(request.peer))
- 
+      print "Client connecting: {}".format(request.peer)
+
    def onOpen(self):
-      print("WebSocket connection open.")
- 
+      print "WebSocket connection open."
+
    def onMessage(self, payload, isBinary):
       global node
       raw_message = str(payload) #.decode('utf8', errors='ignore')
@@ -63,17 +61,23 @@ class MyServerProtocol(WebSocketServerProtocol):
             print "Looking up key {}".format(key)
             value = node.retrieve(key)
             value = json.loads(value)
-            print "decrypted is", value
+            print "value is", value
             self.sendMessage(json.dumps({"type" : "lookup", "error" : False, "value" : value}), isBinary)
      
-          except KeyError:
-            print "Key not found in DHT"
-            # do something error-y, return something bad
-            self.sendMessage(json.dumps({"type" : "lookup", "error" : True, "value" : "key not found!"}), False)
-    
-   def onClose(self, wasClean, code, reason):
-     print("WebSocket connection closed: {}".format(reason))
+          except Exception as e:
+            if isinstance(e, KeyError):
+                print "Key not found in DHT"
+                self.sendMessage(json.dumps({"type" : "lookup", "error" : True, "value" : "key not found!"}), False)
+            #'''elif isinstance(e, ValueError):
+            #     self.sendMessage(json.dumps({"type" : "lookup", "error" : True, "value" : "node can't decrypt!"}), False)
+            else:
+                raise e
 
+   def onClose(self, wasClean, code, reason):
+     if wasClean:
+         print "WebSocket conn closed cleanly [{}]".format(code)
+     else:
+         print "WebSocket conn closed due to error [{}]: {}".format(code, reason)
 
 if __name__ == '__main__':
    log.startLogging(sys.stdout)

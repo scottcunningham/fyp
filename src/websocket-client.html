@@ -6,11 +6,14 @@
          var isopen = false;
          window.onload = function() {
 
+            current = "";
+
             socket = new WebSocket("ws://127.0.0.1:9000");
             socket.binaryType = "arraybuffer";
 
             socket.onopen = function() {
                console.log("Connected!");
+               document.getElementById("msg").innerHTML = "Connection to network established."
                isopen = true;
             }
 
@@ -30,19 +33,42 @@
 
             socket.onclose = function(e) {
                console.log("Connection closed.");
+               document.getElementById("msg").innerHTML = "<h1>ERROR: Websocket connection local node failed! Refresh to try again.</h1>"
                socket = null;
                isopen = false;
             }
          };
 
          function update(msg) {
-           document.getElementById("results").innerHTML = msg;
+           var obj = JSON.parse(msg);
+          
+           if (obj.error) {
+               document.getElementById("msg").innerHTML = "<h1>Error:</h1>";
+               document.getElementById("results").innerHTML = obj.value;
+           }
+
+           if (obj.type == "publish") {
+               document.getElementById("msg").innerHTML = "Published";
+               // obj.value is the VAL not KEY here
+               document.getElementById("results").innerHTML = "<p>Saved under uuid: " + obj.value + "</p>";
+           }
+
+           if (obj.type == "lookup") {
+               document.getElementById("msg").innerHTML = "<p>Results:</p>";
+               document.getElementById("results").innerHTML = obj.value;
+           }
+         }
+
+         function downvote() {
+             message = { type : "downvote", key : current };
+             socket.send(JSON.stringify(message));
          }
 
          function publish() {
             if (isopen) {
                text = document.getElementById("content").value;
-               message = { type : "publish", body : text }
+               k = document.getElementById("key").value;
+               message = { key : k, type : "publish", body : text }
                socket.send(JSON.stringify(message));
                console.log("Text message sent.");
                document.getElementById("notification").innerHtml = "Sent request to publish your content.";
@@ -54,11 +80,13 @@
         function sendText() {
             if (isopen) {
                text = document.getElementById("search_term").value;
-               message = { type : "lookup", body : text }
+               current = text;
+               message = { type : "lookup", key : text }
                socket.send(JSON.stringify(message));
                console.log("Text message sent.");
                document.getElementById("key").innerHtml = "Results for: " + text;
             } else {
+               document.getElementById("msg").innerHtml = "Websocket connection failed...";
                console.log("Connection not opened.")
             }
          };
@@ -68,6 +96,15 @@
          {
              font-family: monospace;
          }
+         #middle
+         {
+            font-family: monospace;
+            text-align:center;
+            color: white;
+            background-color: black;
+            border-style:solid;
+            border-color:#000000 #000000;
+         }
          #top
          {
             font-family: monospace;
@@ -76,7 +113,7 @@
             background-color: grey;
             border-style:solid;
             border-color:#000000 #000000;
-         } 
+         }
          .space {
              line-height: .3 em;
          } 
@@ -88,28 +125,39 @@
       
       <h1>fypweb</h1>
       
+      <h2>Get</h2>
       <form action="">
          <p>Webpage id: <input type="text" id="search_term" name="search_term"><br></p>
       </form>
       <button onclick='sendText();'>Lookup webpage</button>
- 
+      
+      <h2>Put</h2>
       <form action="">
-         <p>Publish: <input type="text" id="content" name="content"><br></p>
+         <p>Key: <input type="text" id="key" name="key"><br></p>
+         <p>Text content: <input type="text" id="content" name="content"><br></p>
       </form>
-      <button onclick='publish();'>Publish content</button>
+      <p>Or upload file:</p>
+      <input name="uploadedfile" type="file">
+        <p class="spacer"></p>
+      <button onclick='publish();'>Publish content</button> 
       <p id="notification">Add something to the network.</p>
     
       <div id="key"></div>
     </div>
     
-    <p class="spacer"> </p>
+    <p class="spacer"></p>
+    
+    <div id="middle">
+      <div id="msg">Diagnostic messages go here.</div> 
+      <button onclick='downvote();'>Downvote this page</button>
+    </div>
 
+    <p class="spacer"> </p>
+    
     <div id="bottom">
-      
       <div id="results">
         <p>Results will appear here once you search for something.</p>
       </div>
-    
     </div>
   </body>
 </html>
