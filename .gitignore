@@ -1,2 +1,8 @@
 *.pdf
 *.pyc
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.log
+*.toc
