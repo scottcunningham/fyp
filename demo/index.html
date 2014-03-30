@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>FYP</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h2>Secure, Anonymous Web-Hosting With Community-Driven Censorship</h2>
+                    <br>
+                    <h4>Scott Cunningham</h4>
+				</section>
+
+                <section>
+                    <h3>Background</h3>
+
+                    <ul>
+                        <li>Current model of WWW is currently centralised</li>
+                        <li>Hierarchical: user → ISP → website</li>
+                        <li>Usual case: single-server website</li>
+                        <li>Single point of failure</li>
+                        <li>Susceptible to attack
+                        	<ul>
+                        		<li>Governments blocking access to sites like political blogs, social networks, world news, Wikileaks</li>
+                        	</ul>
+                        </li>
+
+                        <aside class="notes">
+                            blop
+                        </aside>
+                </section>
+
+                <section>
+                	<h2>Motivations</h2>
+
+                	<ul>
+                		<li>Tracking: can trace connections from user → site</li>
+                		<li>Can snoop on network, guess what websites users access</li>
+                		<li>Single point of failure: DDoS web servers</li>
+                		<li>Censorship:
+                			<ul>
+                				<li>Ireland and "thePirateBay" [1]</li>
+                				<li>YouTube, Twitter banned in Turkey [2]</li>
+                				<li>Censorship controlled by <strong>Governments, ISPs</strong> - not the users</li>
+                			</ul>
+                		</li>
+                	</ul>
+                </section>
+
+                <section>
+                	<h2>Goals</h2>
+
+                	<ol>
+                		<li>
+                			<h4>Publisher anonymity:</h4>
+                			<small><strong>Authors</strong> of sites should be able to be <strong>anonymous.</strong></small>
+                		</li>
+                		<li>
+                			<h4>Reader privacy:</h4>
+                			<small><strong>Users’</strong> browsing should be kept <strong>private</strong>.</small>
+                		</li>
+                		<li>
+                			<h4>Secure data storage:</h4>
+                			<small>Tamper-proof: If other users hold your data, the system must <strong>ensure its integrity.</strong></small>
+                		</li>
+                		<li>
+                			<h4>Exploit the "linking" nature of the web (remove this?)</h4>
+                			<small>Make use of website <strong>discovery</strong> via <strong>referrals</strong> from other websites</small>
+                		</li/>
+                		<li>
+                			<h4>Community-driven censorship</h4>
+                			<small>Allow the community <strong>as a whole</strong> to reject websites</small>
+                		</li>
+                	</ol>
+
+                    <aside class="notes">
+                        Discuss all five goals here
+                        Elaborate on all but the first two
+                    </aside>
+                </section>
+
+                <section>
+                	<h3>Censorship</h3>
+
+                </section>
+
+                <section>
+                	<h3>Censorship worldwide</h3>
+
+					<p><img width=auto height=50% src="media/censorship-map.png" alt="map"></p>
+					<p><img width=40% height=auto src="media/censorship-key.png" alt="maplegend"></p>
+
+					<small>Data taken from OpenNet Initiative [3]</small>
+                </section>
+
+                <section>
+                	<h3>But is all censorship bad?</h3>
+
+                	<ul>
+                		<li>Popular existing solutions aim to completely avoid censorship</li>
+	                	<li>
+	                		<ul>
+	                			<li>Ian Clarke, "FreeNet" (1999).</li>
+	                			<li>Dingledine, Mathewson, Syverson - "Tor: The second-generation onion router" (2004)</li>
+	                		</ul>
+	                	</li>
+	                	<li>Can censorship be built into the system design?</li>
+	                	<li>Can we design a system to enable democratic censorship by the users?</li>
+	                </ul>
+                </section>
+
+                <section>
+                	<h3>Linking nature</h3>
+
+                	<p>remove this?</p>
+                	<p>important for censorship, also
+                </section>
+
+                <section>
+                	<h2>How?</h2>
+                	<h4>Publisher anonymity</h4>
+                	<img src="media/kademlia-indirection.png" width=60% height=auto></img>
+                	<ul>
+                		<li>Co-operative hosting</li>
+                		<li>Publisher does not hold the data</li>
+                		<li>No identifying information</li>
+                	</ul>
+                </section>
+
+                <section>
+                	<h2>How?</h2>
+                	<h4>Secure data storage</h4>
+
+                	<img src="media/kdf-hashing-diagram.png" width="55%" height=auto></img>
+
+                	<ul>
+                		<li>Website random ID used to secure data and find storage location</li>
+                		<li>Algorithms are irreversible</li>
+                	</ul>
+                </section>
+
+				<section>
+					<h2>Attributions</h2>
+					<small>
+					<ol>
+						<li>
+							<p>“High Court orders six Irish internet providers to block The Pirate Bay” - thejournal.ie</p>
+    						<ul>
+    							<li><a href=http://www.thejournal.ie/high-court-order-block-pirate-bay-948503-Jun2013//>Link to thejournal.ie article</a></li>
+    						</ul>
+    					</li>
+    					<li>
+							<p>“Turkey blocks YouTube days after Twitter crackdown” - cnn.com</p>
+				         	<ul>
+				         		<li><a href=http://edition.cnn.com/2014/03/27/world/europe/turkey-youtube-blocked/z>CNN Article link</a></li>
+				         	</ul>
+          				</li>
+          				<li>
+							<p>“Censorship worldwide”:</p>
+							<ul>
+								<li>Based on data from <a href=https://opennet.net/research/data>OpenNet research data</a></li>
+								<li>Diagram made by Wikimedia Commons user Jeff Ogden</li>
+							</ul>
+						</li>
+					</ol>
+					</small>
+				</section>
+
+
+				<section>
+					<h2>Demo Walkthrough</h2>
+					
+					<ol>
+						<li>"Frontend", used to illustrate publishing/reading pages</li>
+						<li>BASH script to automate startup of the network</li>
+							<ul>
+								<li>Runs 10 Kademlia nodes locally</li>
+								<li>Starts frontend in Firefox</li>
+							</ul>
+					</ol>
+				</section>
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				width: 900,
+				height: 600,
+
+				// Factor of the display size that should remain empty around the content
+				margin: 0.1,
+
+				// Bounds for smallest/largest possible scale to apply to content
+				minScale: 0.2,
+				maxScale: 1.6,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
