@@ -8,16 +8,18 @@ NUM_NODES = 5
 PORT_START = 3000
 HOST = "localhost"
 
+
 def create_test_network(num_nodes, host, port_start):
     node = DHT(host, port_start)
     new_nodes = [node]
 
-    for i in range(num_nodes):
-        new_nodes.append(DHT("localhost", port_start + 1 + i, boot_host=host, boot_port=port_start))
+    for i in range(num_nodes - 1):
+        new_nodes.append(DHT("localhost", port_start + 1 + i, boot_host=host,
+                             boot_port=port_start))
         print "done node %s" % i
 
-    node.publish("my_key", json.dumps("testing wow"))
-    print "Stored value in DHT under key 'my_key'"
+    key = node.publish(json.dumps("testing wow"))
+    print "Stored test value in DHT under key", key
     return new_nodes
 
 
@@ -29,7 +31,7 @@ if __name__ == '__main__':
         num_nodes = sys.argv[1]
         port_start = sys.argv[2]
 
-    nodes = create_test_network(NUM_NODES, "localhost", PORT_START)
+    nodes = create_test_network(num_nodes, "localhost", port_start)
     print "Done!"
 
     while True:
