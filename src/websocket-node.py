@@ -12,11 +12,12 @@ from twisted.python import log
 from twisted.internet import reactor
 
 NUM_NODES = 2
-PORT_START = 3001
+PORT_START = 4000
 HOST = "localhost"
 
 print "Creating node, joining network"
-node = DHT("localhost", PORT_START + 50, boot_host=HOST, boot_port=PORT_START- 1)
+node = DHT("localhost", PORT_START + 50)
+node.bootstrap("localhost", PORT_START)
 print "Done."
 
 class MyServerProtocol(WebSocketServerProtocol):
@@ -36,7 +37,7 @@ class MyServerProtocol(WebSocketServerProtocol):
       message = json.loads(raw_message)
 
       print "Got message: {}".format(raw_message)
-      
+
       if message["type"] == "downvote":
           key = message["key"]
           print "downvote", key

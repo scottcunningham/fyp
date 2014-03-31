@@ -3,8 +3,12 @@
 port=4000
 port_start=$port
 
+echo "Creating network with initial node:"
+
 # Create initial network
 /usr/bin/python create_network.py 1 $port &
+
+echo "Preparing to join other nodes to network"
 
 sleep 10
 
@@ -20,7 +24,11 @@ for x in `seq 1 10`; do
 done
 
 i3-msg "workspace 2"
-python websocket-node.py &
+xterm -e "python websocket-node.py" &
 
 sleep 5
-firefox websocket-client.html
+firefox websocket-client.html &
+
+sleep 5
+
+gedit

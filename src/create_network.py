@@ -2,7 +2,6 @@
 
 import sys
 from pydht import DHT
-import json
 
 NUM_NODES = 5
 PORT_START = 3000
@@ -18,8 +17,6 @@ def create_test_network(num_nodes, host, port_start):
                              boot_port=port_start))
         print "done node %s" % i
 
-    key = node.publish(json.dumps("testing wow"))
-    print "Stored test value in DHT under key", key
     return new_nodes
 
 
@@ -28,8 +25,8 @@ if __name__ == '__main__':
         num_nodes = NUM_NODES
         port_start = PORT_START
     else:
-        num_nodes = sys.argv[1]
-        port_start = sys.argv[2]
+        num_nodes = int(sys.argv[1])
+        port_start = int(sys.argv[2])
 
     nodes = create_test_network(num_nodes, "localhost", port_start)
     print "Done!"

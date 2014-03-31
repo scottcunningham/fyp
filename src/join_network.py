@@ -22,7 +22,7 @@ if __name__ == '__main__':
         boot_port = int(sys.argv[4])
 
     print "Joining network"
-    print "On port," port
+    print "On port", port
     node = join_network(host, port, boot_host, boot_port)
     print "Done"
 
