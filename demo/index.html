@@ -1,52 +1,52 @@
 <!doctype html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
+    <head>
+        <meta charset="utf-8">
 
-		<title>FYP</title>
+        <title>FYP</title>
 
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
+        <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+        <meta name="author" content="Hakim El Hattab">
 
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/sky.css" id="theme">
+        <link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="css/theme/sky.css" id="theme">
 
-		<!-- For syntax highlighting -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
-		<script>
-			if( window.location.search.match( /print-pdf/gi ) ) {
-				var link = document.createElement( 'link' );
-				link.rel = 'stylesheet';
-				link.type = 'text/css';
-				link.href = 'css/print/pdf.css';
-				document.getElementsByTagName( 'head' )[0].appendChild( link );
-			}
-		</script>
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
 
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
-	</head>
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
 
-	<body>
+    <body>
 
-		<div class="reveal">
+        <div class="reveal">
 
-			<!-- Any section element inside of this container is displayed as a slide -->
-			<div class="slides">
-				<section>
-					<h2>Secure, Anonymous Web-Hosting With Community-Driven Censorship</h2>
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+                <section>
+                    <h2>Secure, Anonymous Web-Hosting With Community-Driven Censorship</h2>
                     <br>
                     <h4>Scott Cunningham</h4>
-				</section>
+                </section>
 
                 <section>
                     <h3>Background</h3>
@@ -57,210 +57,344 @@
                         <li>Usual case: single-server website</li>
                         <li>Single point of failure</li>
                         <li>Susceptible to attack
-                        	<ul>
-                        		<li>Governments blocking access to sites like political blogs, social networks, world news, Wikileaks</li>
-                        	</ul>
+                            <ul>
+                                <li>Governments blocking access to sites like political blogs, social networks, world news, Wikileaks</li>
+                            </ul>
                         </li>
 
                         <aside class="notes">
-                            blop
+                            So the current model of the "internet" is really very centralised.
+                            Users connect to their ISP, internet service provider, and from there onwards
+                            they connect to a web server to get content.
+                            Websites themselves are also very centralised: often it is the case that
+                            websites are hosted online by one specific web server who serves all the users.
+                            This can be scaled up to many servers but the same principles really apply:
+                            still centralised.
+                            This centralisation makes sense in some ways: for example, it's simple to organise,
+                            and seems to be efficient
                         </aside>
                 </section>
 
                 <section>
-                	<h2>Motivations</h2>
+                    <h2>Motivations</h2>
 
-                	<ul>
-                		<li>Tracking: can trace connections from user → site</li>
-                		<li>Can snoop on network, guess what websites users access</li>
-                		<li>Single point of failure: DDoS web servers</li>
-                		<li>Censorship:
-                			<ul>
-                				<li>Ireland and "thePirateBay" [1]</li>
-                				<li>YouTube, Twitter banned in Turkey [2]</li>
-                				<li>Censorship controlled by <strong>Governments, ISPs</strong> - not the users</li>
-                			</ul>
-                		</li>
-                	</ul>
-                </section>
-
-                <section>
-                	<h2>Goals</h2>
-
-                	<ol>
-                		<li>
-                			<h4>Publisher anonymity:</h4>
-                			<small><strong>Authors</strong> of sites should be able to be <strong>anonymous.</strong></small>
-                		</li>
-                		<li>
-                			<h4>Reader privacy:</h4>
-                			<small><strong>Users’</strong> browsing should be kept <strong>private</strong>.</small>
-                		</li>
-                		<li>
-                			<h4>Secure data storage:</h4>
-                			<small>Tamper-proof: If other users hold your data, the system must <strong>ensure its integrity.</strong></small>
-                		</li>
-                		<li>
-                			<h4>Exploit the "linking" nature of the web (remove this?)</h4>
-                			<small>Make use of website <strong>discovery</strong> via <strong>referrals</strong> from other websites</small>
-                		</li/>
-                		<li>
-                			<h4>Community-driven censorship</h4>
-                			<small>Allow the community <strong>as a whole</strong> to reject websites</small>
-                		</li>
-                	</ol>
+                    <ul>
+                        <li>Tracking: can <strong>trace connections</strong> from user → site</li>
+                        <li>Can snoop on network, guess <strong>what websites</strong> users access</li>
+                        <li>Single point of failure: <strong>DDoS</strong> web servers</li>
+                        <li>Censorship:
+                            <ul>
+                                <li>Ireland and "thePirateBay" [1]</li>
+                                <li>YouTube, Twitter banned in Turkey [2]</li>
+                                <li>Censorship controlled by <strong>Governments, ISPs</strong> - not the users</li>
+                            </ul>
+                        </li>
+                    </ul>
 
                     <aside class="notes">
-                        Discuss all five goals here
-                        Elaborate on all but the first two
+                         Our problem space is really the centralisation that's prevalent around the internet.
+                        DNS, which is used to resolve domain names, is said to be centralised but really
+                        it's controlled by central authorities and if you're relying on your ISP's DNS then
+                        they can cut you off.
+                        Since a website is hosted at a known IP address, 3rd parties snooping on your traffic
+                        (through ISPs or intermediate routers etc) can correlate the IP address you connec tto
+                        with the sites that this IP address serves.
+                        This means that websites have a single point of failure: the content is in one known place.
+                        This means that, say, for example, the case of Wikileaks
+                        they were a single server or a small set of servers, and
+                        powerful governments who did not agree with their content were able to temporarily shut
+                        them down by using a DDoS attack on that one server.
+                        Censorship is prevalent through much of the world.
+                        For example: well-known sites for downloading copyrighted media is banned in Ireland,
+                        thepiratebay
+                        Turkey's government also bans social media
+                        The notable thing here is that it's the governments banning these websites
+               </aside>
+
+                </section>
+
+                <section>Goals</h2>
+
+                    <ol>
+                        <li>
+                            <h4>Publisher anonymity:</h4>
+                            <small><strong>Authors</strong> of sites should be able to be <strong>anonymous.</strong></small>
+                        </li>
+                        <li>
+                            <h4>Reader privacy:</h4>
+                            <small><strong>Users’</strong> browsing should be kept <strong>private</strong>.</small>
+                        </li>
+                        <li>
+                            <h4>Secure data storage:</h4>
+                            <small>Tamper-proof: If <strong>other users</strong> hold your data, the system must <strong>ensure its integrity.</strong></small>
+                        </li>
+                        <li>
+                            <h4>Exploit the "linking" nature of the web (remove this?)</h4>
+                            <small>Make use of website <strong>discovery</strong> via <strong>referrals</strong> from other websites</small>
+                        </li/>
+                        <li>
+                            <h4>Community-driven censorship</h4>
+                            <small>Allow the community <strong>as a whole</strong> to reject websites</small>
+                        </li>
+                    </ol>
+
+                    <aside class="notes">
+                        My aim is to design and create an alternative model for a web serving network that should
+                        shortcomings in the classic internet model
+                        We want to achieve five main goals:
+                        - Allow for people to post anonymously.
+                        You can imagine a political dissident publishing an anti-government paper
+                        - Reader privacy:
+                        Make it impossible for third parties on the network to determine what a certain user is accessing
+                        - Secure data storage
+                        In my proposed model, a user's data - in this case, webpages - is to be held by other users in the
+                        network. We need to be able to confirm without doubt that data has not been tampered with,
+                        that it is the original content that the author wrote
+                        - We want to exploit the linking nature of the web
+                        By this, I mean that we want this network to work well as a web experience, not just simple data
+                        storage. Users should be able to link to other sites from their own, just like in the WWW now.
+                        - Community driven censorship.
+                        We want to put censorship into the hands of the people, for the decision to block a harmful website
+                        to be done democratically by the users of the website.
+                        We want to avoid any large centralised authority being in control of what is and isn't shown in the network:
+                        it should be completely based on the users' opinion.
                     </aside>
                 </section>
 
                 <section>
-                	<h3>Censorship</h3>
-
+                    <h3>Censorship</h3>
                 </section>
 
                 <section>
-                	<h3>Censorship worldwide</h3>
+                    <h3>Censorship worldwide</h3>
 
-					<p><img width=auto height=50% src="media/censorship-map.png" alt="map"></p>
-					<p><img width=40% height=auto src="media/censorship-key.png" alt="maplegend"></p>
+                    <p><img width=60% height=auto src="media/censorship-map.png" alt="map"></p>
+                    <p><img width=40% height=auto src="media/censorship-key.png" alt="maplegend"></p>
 
-					<small>Data taken from OpenNet Initiative [3]</small>
+                    <small>Data taken from OpenNet Initiative [3]</small>
+
+                    <aside class="notes">
+                        This is a world map which is colour-coded by level of internet censorship per country.
+                        The data is taken from a study done by the OpenNet Initiative
+                        You can see that there are several countries in which the level of censorship is very high:
+                        The same study by OpenNet shows that there are several countries that are inconsistent
+                        and also not transparent
+                        in their censorship, Russia for example
+                        The same study also shows data about how censorship has been done for social or political reasons,
+                        for example to hide the people from world news or outside opinion before an election
+                        things that may cause political instability or related problems
+                    </aside>
                 </section>
 
                 <section>
-                	<h3>But is all censorship bad?</h3>
+                    <h3>But is all censorship bad?</h3>
 
-                	<ul>
-                		<li>Popular existing solutions aim to completely avoid censorship</li>
-	                	<li>
-	                		<ul>
-	                			<li>Ian Clarke, "FreeNet" (1999).</li>
-	                			<li>Dingledine, Mathewson, Syverson - "Tor: The second-generation onion router" (2004)</li>
-	                		</ul>
-	                	</li>
-	                	<li>Can censorship be built into the system design?</li>
-	                	<li>Can we design a system to enable democratic censorship by the users?</li>
-	                </ul>
+                    <ul>
+                        <li>Popular existing solutions aim to completely avoid censorship
+                            <ul>
+                                <li>Ian Clarke, "FreeNet" (1999).</li>
+                                <li>Dingledine, Mathewson, Syverson - "Tor: The second-generation onion router" (2004)</li>
+                            </ul>
+                        </li>
+                        <li>Can censorship be built into the system design?</li>
+                        <li>Can we design a system to enable democratic censorship by the users?</li>
+                    </ul>
+
+                    <aside class="notes">
+                    Is all censorship bad?
+                    Existing solutions to the censorship problem in this area include FreeNet and Tor.
+                    FreeNet and Tor are known for their strong opinions against censorship:
+                    Tor, for example, has its main purpose in avoiding tracking and any sort of censorship.
+
+                    However, I think it would be naive to say that censorship is objectively bad.
+                    In some cases, censorship is very justified, for example when a community reaches
+                    a consensus that some content is harmful or unsuitable for consumption.
+
+                    Since other solutions in this problem space take an extreme anti-censorship approach with
+                    which I do not completely agree with, I ask the following questions:
+                    Can we build censorship into the system design?
+                    Can we design a system to enable democratic, user-driven censorship uncontrolled by large powers?
                 </section>
 
                 <section>
-                	<h3>Linking nature</h3>
+                    <h2>How?</h2>
+                    <h4>Publisher anonymity</h4>
+                    <img src="media/kademlia-indirection.png" width="50%" height=auto></img>
+                    <ul>
+                        <li>Co-operative hosting</li>
+                        <li>Publisher does not hold the data</li>
+                        <li>No identifying information</li>
+                    </ul>
 
-                	<p>remove this?</p>
-                	<p>important for censorship, also
+                    <aside class="notes">
+                        I'd just like to briefly run over how the project tries to overcome some of these problems.
                 </section>
 
                 <section>
-                	<h2>How?</h2>
-                	<h4>Publisher anonymity</h4>
-                	<img src="media/kademlia-indirection.png" width=60% height=auto></img>
-                	<ul>
-                		<li>Co-operative hosting</li>
-                		<li>Publisher does not hold the data</li>
-                		<li>No identifying information</li>
-                	</ul>
+                    <h2>How?</h2>
+                    <h4>Secure data storage</h4>
+
+                    <img src="media/kdf-hashing-diagram.png" width="55%" height=auto></img>
+
+                    <ul>
+                        <li>Website random ID used to secure data and find storage location</li>
+                        <li>Algorithms are irreversible</li>
+                    </ul>
                 </section>
 
                 <section>
-                	<h2>How?</h2>
-                	<h4>Secure data storage</h4>
-
-                	<img src="media/kdf-hashing-diagram.png" width="55%" height=auto></img>
-
-                	<ul>
-                		<li>Website random ID used to secure data and find storage location</li>
-                		<li>Algorithms are irreversible</li>
-                	</ul>
+                    <h2>Demo Walkthrough</h2>
+                    
+                    <ol>
+                        <li>"Frontend", used to illustrate publishing/reading pages</li>
+                        <li>BASH script to automate startup of the network</li>
+                            <ul>
+                                <li>Runs 10 Kademlia nodes locally</li>
+                                <li>Starts frontend in Firefox</li>
+                            </ul>
+                    </ol>
                 </section>
 
-				<section>
-					<h2>Attributions</h2>
-					<small>
-					<ol>
-						<li>
-							<p>“High Court orders six Irish internet providers to block The Pirate Bay” - thejournal.ie</p>
-    						<ul>
-    							<li><a href=http://www.thejournal.ie/high-court-order-block-pirate-bay-948503-Jun2013//>Link to thejournal.ie article</a></li>
-    						</ul>
-    					</li>
-    					<li>
-							<p>“Turkey blocks YouTube days after Twitter crackdown” - cnn.com</p>
-				         	<ul>
-				         		<li><a href=http://edition.cnn.com/2014/03/27/world/europe/turkey-youtube-blocked/z>CNN Article link</a></li>
-				         	</ul>
-          				</li>
-          				<li>
-							<p>“Censorship worldwide”:</p>
-							<ul>
-								<li>Based on data from <a href=https://opennet.net/research/data>OpenNet research data</a></li>
-								<li>Diagram made by Wikimedia Commons user Jeff Ogden</li>
-							</ul>
-						</li>
-					</ol>
-					</small>
-				</section>
+                <section>
+                    <h4>System starting up</h24>
+                    <img height=60% width=auto  src="media/demo/demo1.png"/>
+                    <small>Starts up other nodes</small>
+                </section>
+
+                <section>
+                    <h4>View of all other nodes connecting to network</h4>
+                    <img width="80%" height=auto src="media/demo/demo2.png"/>
+                </section>
+
+                <section>
+                    <h4>View of frontend open in browser</h4>
+                    <img width=90% height=auto  src="media/demo/demo4.png"/>
+                </section>
+
+                <section>
+                    <h4>Writing a webpage in a text editor</h4>
+                    <img width=80% height=auto  src="media/demo/demo5.png"/>
+                </section>
+
+                <section>
+                    <h4>Publish it</h4>
+                    <img width=70% height=auto  src="media/demo/demo6.png"/>
+                </section>
+
+                <section>
+                    <h4>Publish confirmation</h4>
+                    <img width=55% height=auto  src="media/demo/demo8.png"/>
+                    <small>We can take this website UUID and use it to retrieve the site later</small>
+                </section>
+                <!--
+                <section>
+                    <h4>"Publish" it 2</h4>
+                    <img width=70% height=auto  src="media/demo/demo7.png"/>
+                    <small>We can see messages to/from the frontend in realtime</small>
+                </section>
+
+                <section>
+                    <h4>Other nodes asked to store the data</h4>
+                    <img width=80% height=auto  src="media/demo/demo9.png"/>
+                    <small>We can see them receiving encrypted data</small>
+                </section>
+                -->
+
+                <section>
+                    <h3>Demo</h3>
+                </section>
+
+                <section>
+                    <h4>Page retrieval</h4>
+                    <img width=75% height=auto src="media/demo/another.png"/>
+                </section>
+
+                <section>
+                    <h4>Results from page retrieval</h4>
+                    <img width=80% height=auto src="media/demo/demo10.png">
+                    <small>Retrieved from network, decrypted and verified</small>
+                </section>
+
+                <section>
+                    <h3>Demo</h3>
+                </section>
+
+                <section>
+                    <h1>Questions?</h1>
+
+                    <br><br>
+                    <h4>Presentation Attributions</h4>
+                    <small>
+                    <ol>
+                        <li>
+                            <p>“High Court orders six Irish internet providers to block The Pirate Bay” - thejournal.ie</p>
+                            <ul>
+                                <li><a href=http://www.thejournal.ie/high-court-order-block-pirate-bay-948503-Jun2013//>Link to thejournal.ie article</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p>“Turkey blocks YouTube days after Twitter crackdown” - cnn.com</p>
+                             <ul>
+                                 <li><a href=http://edition.cnn.com/2014/03/27/world/europe/turkey-youtube-blocked/z>CNN Article link</a></li>
+                             </ul>
+                          </li>
+                          <li>
+                            <p>“Censorship worldwide”:</p>
+                            <ul>
+                                <li>Based on data from <a href=https://opennet.net/research/data>OpenNet research data</a></li>
+                                <li>Diagram made by Wikimedia Commons user Jeff Ogden</li>
+                            </ul>
+                        </li>
+                        <li>Presentation written using <a href="http://lab.hakim.se/reveal-js"/>Reveal.js</a></li>
+                    </ol>
+                    </small>
+                </section>
 
 
-				<section>
-					<h2>Demo Walkthrough</h2>
-					
-					<ol>
-						<li>"Frontend", used to illustrate publishing/reading pages</li>
-						<li>BASH script to automate startup of the network</li>
-							<ul>
-								<li>Runs 10 Kademlia nodes locally</li>
-								<li>Starts frontend in Firefox</li>
-							</ul>
-					</ol>
-				</section>
+            </div>
+        </div>
 
-			</div>
-		</div>
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.min.js"></script>
+        <script>
 
-		<script>
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+                width: 900,
+                height: 600,
 
-			// Full list of configuration options available here:
-			// https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
-				width: 900,
-				height: 600,
+                // Factor of the display size that should remain empty around the content
+                margin: 0.1,
 
-				// Factor of the display size that should remain empty around the content
-				margin: 0.1,
+                // Bounds for smallest/largest possible scale to apply to content
+                minScale: 0.2,
+                maxScale: 1.6,
 
-				// Bounds for smallest/largest possible scale to apply to content
-				minScale: 0.2,
-				maxScale: 1.6,
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
 
-				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+                // Parallax scrolling
+                // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+                // parallaxBackgroundSize: '2100px 900px',
 
-				// Parallax scrolling
-				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
-				// parallaxBackgroundSize: '2100px 900px',
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
 
-				// Optional libraries used to extend on reveal.js
-				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-				]
-			});
+        </script>
 
-		</script>
-
-	</body>
+    </body>
 </html>
