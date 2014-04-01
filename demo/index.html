@@ -228,6 +228,11 @@
 
                     <aside class="notes">
                         I'd just like to briefly run over how the project tries to overcome some of these problems.
+                        To achieve anonymity for users who want to publish a webpage to the network we publish the content
+                        to a Kademlia network.
+                        By doing this, the content is stored by other nodes in the network and not the publisher.
+                        Then, the user doesn't hold their own data so they can't be associated with it.
+                    </aside>
                 </section>
 
                 <section>
@@ -240,8 +245,25 @@
                         <li>Website random ID used to secure data and find storage location</li>
                         <li>Algorithms are irreversible</li>
                     </ul>
-                </section>
+                    <aside class="notes">
+                        Every page is identified by a completely random identifier, or called a uuid.
+                        Since this identifier is random, it can't be used to identify anything but the site itself.
+                        We use the uuid for two things:
+                        - We put it through a hash function, like sha1 for example, to get a hashed location in the
+                        kademlia network in which to store the data
+                        - We also use a cryptographic technique called a Key Derivation Function which from the data
+                        determenistically generates a cryptographic key that we use to encrypt the data
+                        
+                        We also use a HMAC, hashed message authentication code, to encode integrity checks into the
+                        content. This means that if data is tampered with then a user will know when they decrypt it
 
+                        The nodes on the network only receive the encrypted data: they don't know the uuid
+                        so they can't decrypt the webpage or figure out which URL it is for, and they can't tamper 
+                        with it due to the HMAC
+                    </aside>
+
+                </sectiion>
+                            
                 <section>
                     <h2>Demo Walkthrough</h2>
                     
