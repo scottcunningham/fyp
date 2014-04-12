@@ -26,7 +26,7 @@ done
 i3-msg "workspace 2"
 xterm -e "python websocket-node.py" &
 
-sleep 5
+sleep 8
 firefox websocket-client.html &
 
 sleep 5
