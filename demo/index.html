@@ -71,7 +71,9 @@
                             This can be scaled up to many servers but the same principles really apply:
                             still centralised.
                             This centralisation makes sense in some ways: for example, it's simple to organise,
-                            and seems to be efficient
+                            and seems to be efficient as a model
+                            This does however leave websites very open to attack: there is a single point of failure for
+                            these websites as a result
                         </aside>
                 </section>
 
@@ -93,7 +95,7 @@
 
                     <aside class="notes">
                          Our problem space is really the centralisation that's prevalent around the internet.
-                        DNS, which is used to resolve domain names, is said to be centralised but really
+                        DNS, which is used to resolve domain names, is said to be distributed but really
                         it's controlled by central authorities and if you're relying on your ISP's DNS then
                         they can cut you off.
                         Since a website is hosted at a known IP address, 3rd parties snooping on your traffic
@@ -131,7 +133,7 @@
                             <small>Tamper-proof: If <strong>other users</strong> hold your data, the system must <strong>ensure its integrity.</strong></small>
                         </li>
                         <li>
-                            <h4>Exploit the "linking" nature of the web (remove this?)</h4>
+                            <h4>Exploit the "linking" nature of the web</h4>
                             <small>Make use of website <strong>discovery</strong> via <strong>referrals</strong> from other websites</small>
                         </li/>
                         <li>
@@ -222,7 +224,7 @@
                 <section>
                     <h2>How?</h2>
                     <h4>Publisher anonymity</h4>
-                    <img src="media/kademlia-indirection.png" width="50%" height=auto></img>
+                    <img src="media/kademlia-indirection.png" width="60%" height=auto></img>
                     <ul>
                         <li>Co-operative hosting</li>
                         <li>Publisher does not hold the data</li>
@@ -282,7 +284,8 @@
 
                 <section>
                     <h4>System starting up</h24>
-                    <img height=60% width=auto  src="media/demo/demo1.png"/>
+                    <img height=65% width=auto  src="media/demo/demo1.png"/>
+                    <br/>
                     <small>Starts up other nodes</small>
                 </section>
 
@@ -309,6 +312,7 @@
                 <section>
                     <h4>Publish confirmation</h4>
                     <img width=55% height=auto  src="media/demo/demo8.png"/>
+                    <br/>
                     <small>We can take this website UUID and use it to retrieve the site later</small>
                 </section>
                 <!--
