@@ -359,23 +359,16 @@
   \end{center}
   \centerline{\ }
   \centerline{\ }
-  \centerline{A dissertation presented}
-  \centerline{by}
-  \centerline{\ }
   \centerline{\@author}
   \centerline{\ }
-  \centerline{to}
-  \centerline{The Department of {\@department}}
-  \centerline{in partial fulfillment of the requirements}
-  \centerline{for the degree of}
-  \centerline{\@degree}
-  \centerline{in the subject of}
+  \centerline{B.A. (Mod) Computer Science}
   \centerline{\ }
-  \centerline{\@field}
+  \centerline{Final Year Project}
   \centerline{\ }
-  \centerline{Harvard University}
-  \centerline{Cambridge, Massachusetts}
-  \centerline{{\@degreemonth} {\@degreeyear}}
+  \centerline{Supervisor: Prof. Stephen Barrett}
+  \centerline{\ }
+  \centerline{Trinity College, Dublin}
+  \centerline{April 2014}
   \setcounter{footnote}{0}
   }
 }
@@ -413,7 +406,7 @@
 	\@mkboth{\abstractname}{\abstractname}
   \addcontentsline{toc}{section}{Abstract}
 	\vspace*{-.8in}
-	\noindent Thesis advisor \hfill Author \\
+	\noindent Project Supervisor \hfill Author \\
 	\noindent {\bf \@advisor} \hfill {\bf \@author} \\[.4in]
 \centerline{\begin{centering}\large\bf{\@title}\end{centering}}\\[.4in]
   % attempt to

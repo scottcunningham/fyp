@@ -10,12 +10,11 @@
 
 % Harvard GSAS Jan 2000 settings:
 % (Lauren Lamir 5-1519 gave 12pt Times New Roman as the ideal size)...
-\documentclass[12pt,oneside,finala,4paper]{huthesis}
+\documentclass[11pt,oneside,final,a4paper]{huthesis}
 
 \usepackage{epsfig,bm,epsf,float}
 
 
-%% choose which files to process
 %% stolen from the mitthesis suite
 \typein [\files]{Enter file names to process, (frontmatter,intro,
   ...), or `all' to process all files:} 
@@ -41,13 +40,28 @@
 % \ssp
 
 % makes double-spaced: (for GSAS requirement, microfiche):
-\dsp
+%\dsp
 
 
 \include{frontmatter}
 
 % Chapter 1:
-\include{ch1}
+\include{ch1-intro}
+
+% Chapter 2:
+\include{ch2-related}
+
+% Chapter 3:
+\include{ch3-design}
+
+% Chapter 4:
+\include{ch4-impl}
+
+% Chapter 4:
+\include{ch5-eval}
+
+% Chapter 6:
+\include{ch6-future}
 
 % insert other chapters here...
 

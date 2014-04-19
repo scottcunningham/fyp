@@ -1,6 +1,6 @@
 \documentclass{article}
 
-\title{An Anonymising Web Serving Network with Community-Driven Censorship}
+\title{Secure, Anonymous Web-Hosting With Community-Driven Censorship}
 \begin{document}
 
 \author{Scott Cunningham}
@@ -25,35 +25,101 @@
 %---------------------------------------------------------
 \section{Introduction}
 %
+\subsection{Background/Problem Description}
 
-The world-wide web as is exist today is inherently centralised. The common case for web-serving is
-that when a user wants to view a certain website X, they contact a server known to be hosting X and
-download this web page directly from this central server. This model changes slightly when websites
-use Content Delivery Networks in order to distribute copies of their website across several
-geographic locations in order to improve page-load times for users in that location. Regardless,
-this model is also centralised.
+The current model of the world-wide web is hierarchical. Users typically connect to the internet via an Internet Service Provider (ISP). This gives Internet Service Providers the ability to analyse and block traffic which passes through them. This ability can be used for censorship of the users. Internet Service Providers typically use this ability to block user access to web-sites.
 
-This centralisation is the cause of several concerns, these being:
+Web censorship is often put in place by Internet Service Providers in response to pressure from organisations such as governments or large media establishments. It is often the case that these organisations that impose this censorship on web users act in their own best interests, and not always that of the users. This is particularly true in the case of governments blocking external media sources in an effort to maintain political or social goals that would be interfered with by media from other countries. Since the validity of this type of censorship is subjective, we argue that web censorship of this nature is not justifiable and that the web should be free from this censorship.
+
+It is not the case, however, that censorship is universally bad. In some cases, censorship is a viable means of removing harmful content from the internet. However, it is difficult for a third party to accurately define what content is and is not objectively harmful for users of a system. Therefore, we argue that censorship should be decided only by consensus by the users of a system.
+
+Internet Service Providers also have the ability to record user browsing habits. By analysing HTTP and HTTPS traffic sources destinations, they can identify web-sites that their users are visiting.
+
+SSL certificates, used for encryption when serving a web-site over HTTPS rely on a centralised certificate-validation system. Due to the expense of SSL certificates, much web traffic on the Internet uses the unencrypted HTTP protocol rather than the encrypted HTTPS. This means that users web traffic is transmitted unencrypted: without HTTPS, user passwords and web content can be read by malicious users on a shared network.
+
+Web-sites hosting is usually centralised. It is typical for a website to be served by one single web server which serves content to all of that web-site’s users. This leads to a single-point-of-failure in web serving: attackers that can take this single web-server down will result in a global failure of this web-site. This is often done through an attack called a Distributed Denial of Service (DDoS).
+
+\subsection{Goals}
+
+This project aims to design an alternate model for web content delivery on the internet. The model  which addresses privacy and anonymity issues in the current model. The project goals are as follows:
+
+\begin{enumerate}
+    \item {Decentralisation
+        The system aims to avoid the centralisation that web-site hosting currently uses.}
+    \item{Author anonymity
+        Users who wish to publish content on this network must be able to do so anonymously. Web content published to the network must not be traceable to the user that created it. Users, then, can not hold their own content: it must be co-operatively held by other users of the network in exchange for holding their content.}
+    \item{Reader privacy
+        Users who wish to consume content on this network must be able to do so with privacy. It should be impossible for malicious users who intercept traffic on this network (either via a shared connection or by being their ISP,  etc) should not be able to determine what content a user is consuming.}
+    \item{Community-driven censorship
+        Censorship is often controlled by large, centralised powers such as governments. Due to this, it is not always the case that web users are in control of what content has been made unavailable to users of the network. Users of the network should be in control of what content is or is not acceptable.
+        Increased reliability and redundancy
+        Web content stored on the network should not be reliant on any one single node. Content should be spread across nodes to ensure that it remains on the network despite single users leaving the network.}
+    \item{Secure data storage
+        Users can not all hold their own data because this would violate a user’s anonymity, so other users must hold it for them. As a result, we must ensure that the users storing your web content can neither tamper with it nor read its contents. For them to do so could possibly breach the author’s privacy. This necessitates secure data storage.}
+\end{enumerate}
+
+\section{Related Work/State of the Art}
+
+\subsection{Blanchfield}
+
+Blanchfield, in his paper “An Anonymous and Scalable Peer-to-Peer System”, describes an anonymising peer-to-peer network.
+
+Blanchfield defines five types of anonymity:
+
+\begin{enumerate}
+    \item{Author anonymity: A user can not be linked to a document which they have created.}
+    \item{Publisher anonymity: A user can not be linked to a document which they have added to the network.}
+    \item{Reader anonymity: A user can not be linked to a request to read a document in the network.}
+    \item{Server anonymity: A user can not be linked to documents that they are storing.}
+    \item{Document anonymity: A user can not know what documents that they are storing.}
+\end{enumerate}
+
+We will use these definitions throughout the paper.
+
+\subsection{FreeNet}
+
+In his paper “A Distributed Decentralised Information Storage and Retrieval System”, Ian Clarke describes a system which he calls “FreeNet”. FreeNet is a distributed, peer-to-peer web serving system providing document anonymity, author anonymity, and reader anonymity.
+
+FreeNet does not provide any means for censorship. Instead, content on the network is given a “time to live” value. After this time expires, the content is removed from the network. 
+
+\subsection{Tor, "The Onion Router"}
+
+Tor is a peer-to-peer web serving network which provides user privacy against web traffic analysis. It aims to protect its users from malicious third parties analysing their web traffic and using it to profile users or make assumptions about their browsing habits. It does this through multi-hop routing, which they refer to as “onion routing”.
+
+Tor takes a strong anti-censorship position. As a consequence, Tor is known to be used for hosting various illegal content. 
+
+\subsection{BitTorrent}
+
+BitTorrent is a distributed, peer-to-peer file-sharing system. While BitTorrent is not specifically a web-serving network, it is a useful example.
+
+On a BitTorrent network, users voluntarily choose content to download. Once portions of data have been downloaded to a user, they then can provide that content to other users of the network.
+
+Information about content locations are found using a Kademlia-based network, called KAD. Kademlia is a decentralised, peer-to-peer data storage system. Though content locations in a BitTorrent network are found through the decentralised KAD network, data transfers are done directly from user to user.
+
+There is no redundancy or reliability built into BitTorrent. Content only stays on a BitTorrent network while users interested in sharing that content remain on the network.
+
+\subsection{Elite}
+
+“Elite” is an anonymous, decentralised search engine described by Kilian Levacher in his paper “Elite, An Ethical Peer-to-Peer Search Engine”. Elite aims to allow users to hold their own data instead of it being held by third party search engine providers.
+
+Elite has several interesting design ideas that are of interest to this project:
 \begin{itemize}
-    \item{Privacy concerns. For example, it is possible for a third-
-          party listener on a network to inspect the packets coming from a user and tell which IP address
-          this user is connecting to. This is problematic because it allows third parties to infer which web
-          sites a user is visiting, and invade users' privacy by profiling their internet activity.}
-    \item{This centralisation also leaves these central website servers open to attack. People who find the
-content of a site objectionable can lead large distributed attacks against web servers, referred
-to as a "DDoS" (Distributed Denial of Service).}
-    \item{bad censorship, not decided by public, decided by those who are in power}
-mention anonymous publishing
-
+    \item{Query anonymity through random id replacement
+Human browsing habits to evaluate content (similar to our downvote model)}
+    \item{Wants ability for censorship - quote "enabling peers to democratically make decisions about how information is managed on the system"}
+    \item{Ripple effect - which we can adapt to help with our censorship model}
 \end{itemize}
 
-This project aims to address the issues outlined above by developing a system in which web
-serving is decentralised anouisadoijd etc
-
+%---------------------------------------------------------
 \section{Design}
 
-%---------------------------------------------------------
-\section{Implementation}
+Having looked at other related solutions in the problem area and mentioning their interesting points and weaknesses, we now turn our attention to the design of our own solution. It was decided that we would design an alternate system based upon the Kademlia Distributed Hash Tablet (DHT). We will take inspiration from parts of several of the systems mentioned in the Related Work section.
+
+Our design will consist of several users in a distributed system, which we refer to as “nodes”, each with the same capabilities. Each node will contribute to the network by serving some of the content that other users publish.
+
+We will now discuss the reasoning behind the design choices made in the architecture of this system.
+
+
 
 %---------------------------------------------------------
 \section{Evaluation}
@@ -64,7 +130,7 @@ serving is decentralised anouisadoijd etc
 %---------------------------------------------------------
 
 testing references: blah blah blah ~\cite{blanchfield}. nblah blaqh ~\cite{levacher} ~\cite{freenet}.
-
+~\cite{opennet}
 asdf
 
 ~\cite{torrent}

@@ -1,2 +1,2 @@
 default:
-	latex thesis ; bibtex thesis ; latex thesis ; pdflatex thesis
+	pdflatex thesis ; bibtex thesis ; pdflatex thesis ; pdflatex thesis
