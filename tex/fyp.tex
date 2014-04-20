@@ -1,0 +1,122 @@
+\documentclass{article}
+
+\title{An Anonymising Web Serving Network with Community-Driven Censorship}
+\begin{document}
+
+\author{Scott Cunningham}
+\date{Supervisor: Stephen Barrett}
+
+\maketitle{}
+
+\bibliographystyle{plain}%Choose a bibliograhpic style
+
+\newpage{}
+
+%---------------------------------------------------------
+\tableofcontents{}
+
+\newpage{}
+
+%---------------------------------------------------------
+%---------------------------------------------------------
+\section*{Abstract}
+
+\newpage{}
+%---------------------------------------------------------
+\section{Introduction}
+%
+
+The world-wide web as is exist today is inherently centralised. The common case for web-serving is
+that when a user wants to view a certain website X, they contact a server known to be hosting X and
+download this web page directly from this central server. This model changes slightly when websites
+use Content Delivery Networks in order to distribute copies of their website across several
+geographic locations in order to improve page-load times for users in that location. Regardless,
+this model is also centralised.
+
+This centralisation is the cause of several concerns, these being:
+\begin{itemize}
+    \item{Privacy concerns. For example, it is possible for a third-
+          party listener on a network to inspect the packets coming from a user and tell which IP address
+          this user is connecting to. This is problematic because it allows third parties to infer which web
+          sites a user is visiting, and invade users' privacy by profiling their internet activity.}
+    \item{This centralisation also leaves these central website servers open to attack. People who find the
+content of a site objectionable can lead large distributed attacks against web servers, referred
+to as a "DDoS" (Distributed Denial of Service).}
+    \item{bad censorship, not decided by public, decided by those who are in power}
+mention anonymous publishing
+
+\end{itemize}
+
+This project aims to address the issues outlined above by developing a system in which web
+serving is decentralised anouisadoijd etc
+
+\section{Design}
+
+%---------------------------------------------------------
+\section{Implementation}
+
+%---------------------------------------------------------
+\section{Evaluation}
+
+%---------------------------------------------------------
+\section{Further work}
+
+%---------------------------------------------------------
+
+testing references: blah blah blah ~\cite{blanchfield}. nblah blaqh ~\cite{levacher} ~\cite{freenet}.
+
+asdf
+
+~\cite{torrent}
+
+%---------------------------------------------------------
+\section{Methods/Algorithms}
+
+Goals:
+
+Durability - no single point of failure
+Reader anonymity
+Publisher anonymity
+Censorship
+
+
+Ways to do things:
+
+Durability
+    - We distribute things around a decentralised network
+    - No single point of failure
+    - On top of Kademlia (optional)
+        - We split pages into parts
+        - Need to take down several hosts to get file offline
+        - Not taking cache into account
+Reader anonymity
+    - Based on Levacher - randomly change source to self on hops
+Publisher anonymity
+    - Don't rely on often-used crypto key
+    - Need to make it seem like a "publish" command doesn't come from self
+    - TODO - flesh out implementation ideas here
+Don't want to keep items online forever
+    - like freenet
+    - set long-lasting timer when item created
+    - downvotes contribute to death rate of content
+    - not downvoting -> keep it on for longer
+    - MENTION LEVACHER - LAZINESS 
+Censorship
+    - Can be done in several ways
+    - Evaluate and weigh pros/cons of all
+    - one style: lavacher ripple effect
+    - other: refuse to forward packets
+    - algorithm for user holding data item
+        - decomposition algorithm
+        - downvote based
+
+    - 
+
+%---------------------------------------------------------
+\section{Conclusions and future work}
+
+%---------------------------------------------------------
+%---------------------------------------------------------
+\newpage{}
+\bibliography{bib}
+\end{document}

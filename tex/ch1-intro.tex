@@ -1,0 +1,120 @@
+%% intro.tex
+\chapter{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Background}
+
+\subsection{Hierarchical}
+
+The current model of the world-wide web is hierarchical. Users typically
+connect to the internet via an Internet Service Provider (ISP).
+This gives Internet Service Providers the ability to analyse and block
+traffic which passes through them. This ability can be used for censorship
+of the users. Internet Service Providers typically use this ability to block
+user access to web-sites.
+
+\subsection{Censorship}
+
+Web censorship is often put in place by Internet Service Providers in response
+to pressure from organisations such as governments or large media establishments.
+It is often the case that these organisations that impose this censorship on web
+users act in their own best interests, and not always that of the users. This is
+particularly true in the case of governments blocking external media sources in
+an effort to maintain political or social goals that would be interfered with
+by media from other countries. Research done by the OpenNet Institute ~\cite{opennet}
+shows that internet censorship is done for political, social, and conflict/security
+reasons. Since the validity of this type of censorship is subjective, we argue that
+web censorship of this nature is not justifiable and that the web should be free
+from this censorship.
+
+It is not the case, however, that censorship is universally bad. In some cases,
+censorship is a viable means of removing harmful content from the internet.
+However, it is difficult for a third party to accurately define what content
+can be deemed objectively harmful for users of a system. Therefore, we argue
+that censorship should be decided only by consensus by the users of a system.
+
+StackOverflow is a technical questions-and-answers website that features
+community-driven content rating. StackOverflow is a where users can submit
+questions about a topic, and other users can answer these questions. The quality
+of answers is rated by users through a simple up-vote/down-vote system, where an
+“up-vote” is used to signify that a user believes that this answer is appropriate,
+and a “down-vote” is used when a user believes that an answer is inappropriate. ~\cite{stackoverflow}
+The quality of an answer is assessed by its overall down-vote count subtracted
+from its overall up-vote count. Answers are then sorted according to this
+quality metric, and the answers are ordered by their score. In this way, the
+community decides which answers are appropriate and most worthwhile, and their
+consensus decides whether answers are shown or hidden from view.
+
+\subsection{User Privacy}
+
+Internet Service Providers also have the ability to record user browsing habits.
+By analysing HTTP and HTTPS traffic sources destinations, they can identify web-sites
+that their users are visiting.
+
+SSL certificates, used for encryption when serving a web-site over HTTPS rely on a
+centralised certificate-validation system. Due to the expense of SSL certificates,
+much web traffic on the Internet uses the unencrypted HTTP protocol rather than the
+encrypted HTTPS. This means that users web traffic is transmitted unencrypted: without
+HTTPS, user passwords and web content can be read by malicious users on a shared network.
+
+\subsection{Centralisation of hosting}
+
+Web-sites hosting is usually centralised. It is typical for a website to be served by
+one single web server which serves content to all of that web-site’s users. This leads
+to a single-point-of-failure in web serving. Hardware or software failure at this server
+will lead to a loss of service for this web-site. Attackers that can take this single web-server
+down will result in a global failure of this web-site. This is often done through an attack
+called a Distributed Denial of Service (DDoS).
+
+\section{Goals}
+
+This project aims to design an alternate model for web content delivery on the internet.
+The model should aim to address privacy and anonymity issues in the current model.
+The project goals are as follows:
+
+\begin{enumerate}
+
+    \item{Decentralisation \\
+The system aims to avoid the centralisation that web-site hosting currently uses.
+Decentralising the system means that no resources will be controlled by one centralised
+authority, putting the system in the hands of the users themselves.
+        }
+
+    \item{Author Anonymity \\
+Users who wish to publish content on this network must be able to do so anonymously.
+Web content published to the network must not be traceable to the user that created it.
+Users, then, can not hold their own content: it must be co-operatively held by other
+users of the network in exchange for holding their content.
+        }
+
+    \item{Reader Privacy \\
+Users who wish to consume content on this network must be able to do so with privacy.
+It should be impossible for malicious users who intercept traffic on this network
+(either via a shared connection or by being their ISP,  etc) should not be able to
+determine what content a user is consuming.
+        }
+
+    \item{Community-Driven Censorship \\
+Censorship is often controlled by large, centralised powers such as governments.
+Due to this, it is not always the case that web users are in control of what content
+has been made unavailable to users of the network. Users of the network should be
+in control of what content is or is not acceptable.
+        }
+
+    \item{Increased reliability and redundancy \\
+Web content stored on the network should not be reliant on any one single node.
+Content should be spread across nodes to ensure that it remains on the network despite
+single users leaving the network.
+        }
+
+    \item{Secure Data Storage \\
+Users can not all hold their own data because this would violate a user’s anonymity,
+so other users must hold it for them. As a result, we must ensure that the users storing
+your web content can neither tamper with it nor read its contents. For them to do so could
+possibly breach the author’s privacy. This necessitates secure data storage.
+        }
+\end{enumerate}
+
+The system aims to provide author anonymity, publisher anonymity,
+reader anonymity and document anonymity as defined by Blanchfield ~\cite{blanchfield}.
+
