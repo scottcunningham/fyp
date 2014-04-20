@@ -1,5 +1,98 @@
 \chapter{Implementation}
 
 Now that we have discussed the design of our system, we will discuss its implementation.
-This will consist of the design of identical user nodes which will provide 
+This design will consist of two main parts:
 
+\begin{enumerate}
+	\item{Identical Kademlia user nodes which will make up the Kademlia network.
+	The code for these nodes will contain implementation for content look-up, publishing and down-voting and will provide 
+	a high-level interface for interfacing with the system. }
+	\item A user-facing front-end which will have the ability to look-up content, publish content and down-vote content.
+\end{enumerate}
+
+We will first discuss general implementation details, then turn our attention to the implementation of these parts.
+
+\section{The Python programming language}
+
+The project was written using the programming language Python. Python is a high-level interpreted programming language with
+light syntax and ``duck-typing'', making it ideal for rapid development. Python also has many useful libraries available,
+many of which are open-source under permissive licenses. While none of these factors were essential to the development
+of the project, the availability of Python libraries helped with the implementation of the system.
+
+\section{Kademlia Implementations}
+
+While there are several available Python implementations of the Kademlia DHT, many are incomplete or badly documented.
+We will discuss the available implementations and their relative advantages and disadvantages.
+
+\subsection{Entangled}
+
+Entangled is a working implementation of the Kademlia DHT written in Python. It provides a high-level programming interface and
+a graphical interface for interfacing with the Kademlia network with the ability to demonstrate file-sharing graphically.
+Entangled also includes an extra ``delete'' RPC which could be easily modified to serve the purpose of the ``downvote'' RPC
+that our system requires. However, Entangled lacks comprehensive documentation and has a complicated API.
+Entangled's code-base is complicated and difficult to understand in places. For this reason, it was decided that Entangled
+was not suitable to be used for this system.
+
+Entangled is released under the GNU General Public License, v3 (GPLv3).
+
+\subsection{``Kademlia'' Library}
+
+``Kademlia'' a Kademlia DHT implementation in Python. ``Kademlia'' seems to be well-documented and written,
+but as its first release first published after the beginning of this project, it was decided that it would be too unstable of
+a platform to begin working on. However, the library looks promising and it would be possible for it to be used in future projects
+once the code-base has become stable.
+
+``Kademlia'' is released under the MIT license.
+
+\subsection{PyDHT}
+
+PyDHT is a pure Kademlia DHT implementation written in Python. PyDHT does not add extra functionality to the DHT, and its code
+is simple enough to be understood, despite its lack of documentation. The code-base of PyDHT is small and modular, making
+it possible to easily change the implementation in places. PyDHT includes simple code examples demonstrating how to use the
+library. As a result, it was decided that PyDHT would be a suitable base to work on for this project.
+
+PyDHT is released under the BSD 2-clause license.
+
+\subsection{Choice of Kademlia implementation}
+
+It was decided that PyDHT would be used as the base of this project due to its stability, simple API and permissive license.
+Since PyDHT is licensed under the 2-clause BSD license, we have forked the library and the modified library will be made
+available under the same 2-clause BSD license. The modified library will be made available in Appendix 1.
+
+\section{Cryptography}
+
+\subsection{Key Derivation Functions \& MAC}
+
+The implementation of key-derivation functions and MAC used in the project is written using the PyCrypto Python cryptography library ~\cite{pycrypto}.
+The code for this implementation is based on PyCrypto code examples released in to the public domain by Brendan Long ~\cite{kdfexample}.
+PyCrypto was chosen due to its proven stability and usage as well as it having functional examples of Key-Derivation Functions.
+
+The key-derivation function chosen to be used for this project was PBKDF2. PBKDF2 was written by RSA labs to replace an earlier standard,
+PBKDF1, which could only produce keys with length of up to 160 bits ~\cite{kdf}. PBKDF2 is suitable due to it supporting the generation of
+larger keys than 160 bits. This ensures that key-sizes can be increased beyond 160 bits in the future if necessary.
+PBKDF2 was chosen due to a readily available implementation being included in the PyCrypto library.
+Other key-derivation functions that supported large key-sizes would also be suitable for usage in this system.
+
+The MAC algorithm which was chosen to be used for this project was Hash-based Message Authentication Code (HMAC). HMAC was chosen due to a readily
+available implementation being provided in the PyCrypto library and due to it being well-known and proven in the field.
+Other MAC algorithms would also be suitable in its place.
+
+\subsection{Hashing function}
+
+The hashing function chosen to be used to derive content locations from UUIDs in the system was SHA-1. This could be replaced with any hashing function
+that provided a relatively large key-space. SHA-1 was chosen due to an implementation in the Python standard ``hashlib'' library.
+
+\subsection{Cryptographic keys}
+
+Cryptographic keys are necessary to provide encryption and decryption of data stored by nodes on the network. In order to ensure document anonymity,
+the encryption scheme used must be strong enough that it would be infeasible for a node on the network to break it in a reasonable amount of time.
+
+During the design of the system, we considered both symmetric key encryption and asymmetric key (public-private key) encryption. In order to use
+asymmetric key encryption, 
+
+hashing
+
+pydht modifications
+	publish fn
+	retrieve fn
+	downvote fn
