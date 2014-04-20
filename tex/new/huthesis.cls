@@ -1341,6 +1341,4 @@
 \textwidth 6in % makes 1in from right
 % textheight is height of body, and is a bit less than 9in: don't set.
 
-\bibliographystyle{plain}
-
 \endinput
