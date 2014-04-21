@@ -6,6 +6,11 @@
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Diagram demonstrating the usage of random sender ID replacement used to hide the origin of a data request.}}{16}
 \contentsline {figure}{\numberline {3.4}{\ignorespaces A diagram showing the process through which an secure cipher-text (encrypted) message and Message Authentication Code for that message is derived from a plain-text (unencrypted) message.}}{18}
 \contentsline {figure}{\numberline {3.5}{\ignorespaces A diagram showing the system architecture.}}{22}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Algorithm for retrieving web-page from network.}}{23}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Algorithm for retrieving web-page from network.}}{24}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Algorithm for retrieving web-page from network.}}{27}
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Code listing demonstrating how an item is selected for deletion based on its downvote rating.}}{37}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces A diagram showing the system architecture, including the user-visible front-end.}}{38}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

@@ -100,9 +100,119 @@ in the PyCrypto library ~\cite{pycrypto}. Rijndael AES was arbitrarily chosen as
 
 \section{Code Structure}
 
+The code is split into two major components, as mentioned previously:
+\begin{enumerate}
+	\item{A Kademlia-based peer-to-peer network. Since the project uses the PyDHT Kademlia implementation library as a base, most of the code is contained in a modified version of PyDHT.
+	This part of the code will provide a Python interface to publish, retrieve and down-vote web-pages as well as handling communication with the underlying Kademlia network.}
+	\item{The user-facing front-end code. This part of the code will provide a user interface which will allow a user to publish, retrieve and down-vote web-pages
+	on the network. This part of the code-base be composed of two parts:
+		\begin{enumerate}
+		    \item A Python-based program which will relay messages from the user interface to the underlying modified Kademlia network.
+			\item A web-browser-based application which provides a user interface to the network. This will be written in HTML and JavaScript, using web-sockets to communicate
+			with the Python program which in turn communicated with the Kademlia network.
+		\end{enumerate}
+	}
+\end{enumerate}
 
+We will now continue to discuss the implementation of both of these components.
 
-pydht modifications
-	publish fn
-	retrieve fn
-	downvote fn
+\subsection{Kademlia-based Peer-to-Peer Network}
+
+This part of the code is heavily based upon PyDHT, which provides a working Kademlia network as a base on which we build the extra features needed by our network.
+
+\subsubsection{Content Publishing  - \texttt{publish(content)}}
+
+Content publishing is done according to the algorithm described in figure \ref{fig:retrievalalgo}, in the Design section of this paper. This is done in the
+publish() function of the DHT class in the source file pydht.py. The function generates a random UUID using the standard Python ``uuid'' library, then derives
+the content-location using SHA-1 as the hash function. The function then uses the do\_encrypt() function from the key\_derivation module
+to encrypt the data, using the UUID, then stores it in the Kademlia network and returns the UUID.
+
+\subsubsection{Content Retrieval - \texttt{retrieve(uuid)}}
+
+Content retrieval is done according to the algorithm described in figure \ref{fig:publishalgo}, in the Design section of this paper. This is done in the
+retrieve() function in the DHT class in the source file pydht.py. The retrieve() function takes the given UUID, and uses the hash function to derive the
+content-location. The function then retrieves this content from the Kademlia network, and tries to decrypt it using the do\_decrypt() function from the
+key\_derivation module, using the UUID. If either the decryption or MAC checking fails, then the function throws an error. Otherwise, the decrypted data
+is returned to the user.
+
+\subsubsection{Encryption \& Key Derivation}
+
+The encryption and key-derivation logic of the system is contained in a key\_derivation Python module which was added to PyDHT. The encryption and decryption functions
+written in this module are based on code examples released into the public domain ~\cite{kdfexample}.
+
+This module is comprised of the following functions:
+
+\begin{itemize}
+	\item {\texttt{make\_key()} \\
+	This function takes a UUID and uses a key-derivation function to generate a cryptographic key.
+	This key can then be used to as an AES or HMAC key.
+	}
+	\item {\texttt{make\_hmac()}\\
+	This function takes a message and a cryptographic key and uses the key to create a HMAC verification code of
+	the message. This HMAC verification code can then be used for message authentication.
+	}
+	\item {\texttt{encrypt()}\\
+	This function takes a message and a cryptographic key and uses the key to encrypt the message using AES.
+	}
+	\item {\texttt{decrypt()}\\
+	This function takes an encrypted message and a cryptographic key and attempts to decrypt the message using the key.
+	An error is thrown if this is unsuccessful.
+	}
+	\item {\texttt{do\_encrypt()}\\
+	This is a simple wrapper function that takes a UUID and a message and returns an encrypted message and HMAC verification code. This function uses
+	make\_key to generate an AES key and a HMAC key using the UUID, then encrypts the data and generates a HMAC verification code.
+	}
+	\item {\texttt{do\_decrypt()}\\
+	This is a simple wrapper function that takes a UUID and encrypted message and attempts to decrypt and verify it.
+	The function generates a HMAC key and an AES key using make\_key, then attempts to decrypt and verify the encrypted data using them.
+	If the verification or decryption fails, the function throws an error. Otherwise, decrypted data is returned.
+	}
+
+\end{itemize}
+
+\subsubsection{``Down-vote'' Content Censorship Algorithm}
+
+Down-vote handling is done in the logic of the DHT class. The DHT class keeps a record of the TTL and aggregate down-vote count for each of the pieces of
+data that it holds. Once per second, the \texttt{tick()} function is called, which adjusts the TTL of items according to their rating. Once an item's TTL
+is less than zero, it is deleted from the network. Figure \ref{fig:code-downvote} shows a code listing taken from the tick() function from the
+program source, demonstrating the down-vote algorithm's implementation.
+
+\begin{figure}[H]
+	\begin{lstlisting}
+for (uuid, downvotes) in self.downvotes.items():
+    downvote_val = math.log(downvotes, 2cd \)
+    self.ttls[uuid] -= downvote_val
+for (uuid, ttl) in self.ttls.items():
+    if ttl <= 0:
+        print "UUID", uuid, " past TTL - deleting"
+        del self.data[uuid]
+	\end{lstlisting}
+    \caption{Code listing demonstrating how an item is selected for deletion based on its downvote rating.}
+    \label{fig:code-downvote}
+\end{figure}
+
+\subsection{User-facing front-end}
+
+As mentioned previously, the front-end is made up of of a JavaScript and HTML web-based front-end, and a Python program which
+interfaces with the modified Kademlia network. We will now discuss both of these.
+
+\subsubsection{Browser code - \texttt{websocket-client.html}}
+
+The browser code consists of a simple HTML page which provides inputs for users to open pages for a given UUID, to publish pages,
+and to down-vote a page that is currently loaded. The page uses JavaScript to draw requested pages to a section of the browser screen,
+sending requests to a local Python interface to the Kademlia network using the JSON serialisation format over a WebSocket connection.
+
+\subsubsection{Local node - \texttt{websocket-node.py}}
+
+The Python ``local node" provides the web-frontend an interface to the Kademlia network. The node simply listens on a WebSocket connection
+and then relays any requests to the underlying Kademlia network.
+
+The WebSocket Python code was adapted from an example in the source code of the AutobahnPython project ~\cite{websocket}, which is released
+under the Apache license. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/arch-frontend.png}
+    \caption{A diagram showing the system architecture, including the user-visible front-end.}
+    \label{fig:arch-frontend}
+\end{figure}
