@@ -85,12 +85,20 @@ that provided a relatively large key-space. SHA-1 was chosen due to an implement
 \subsection{Cryptographic keys}
 
 Cryptographic keys are necessary to provide encryption and decryption of data stored by nodes on the network. In order to ensure document anonymity,
-the encryption scheme used must be strong enough that it would be infeasible for a node on the network to break it in a reasonable amount of time.
+the encryption scheme used must be strong enough that it would be infeasible for a node on the network to break it in a reasonable amount of time. The user that publishes some data must be able to encrypt that data, and also allow users to decrypt it.
 
-During the design of the system, we considered both symmetric key encryption and asymmetric key (public-private key) encryption. In order to use
-asymmetric key encryption, 
+During the design of the system, we considered both symmetric key encryption and asymmetric key (public-private key) encryption.
 
-hashing
+Asymmetric-key RSA encryption was initially used for encryption and decryption of content. In RSA, a private-key is used for 
+decryption and a public-key for encryption ~\cite{rsa}. Since the system requires that the author encrypts a piece of data and readers decrypt it, the private key would have to be given to users to decrypt web-page data. As a result, asymmetric-key
+encryption was decided to be unsuitable for the system.
+
+Symmetric-key encryption uses one cryptographic key for both encryption and decryption. This fits the requirements of our design
+specification - the content author and content reader can both use the same cryptographic key for encryption and decryption.
+This implementation of the system uses Rijndael AES as its implementation of symmetric-key encryption due to its availability
+in the PyCrypto library ~\cite{pycrypto}. Rijndael AES was arbitrarily chosen as it has been proven by its industry use, and had no obvious disadvantage compared to the other algorithms.
+
+
 
 pydht modifications
 	publish fn
