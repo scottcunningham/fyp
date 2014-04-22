@@ -2,7 +2,7 @@
 
 \section{Blanchfield}
 
-Blanchfield, in his paper “An Anonymous and Scalable Peer-to-Peer System” ~\cite{blanchfield},
+Blanchfield, in his paper ``An Anonymous and Scalable Peer-to-Peer System'' ~\cite{blanchfield},
 describes a novel anonymising peer-to-peer network.
 
 Blanchfield defines five types of anonymity:
@@ -24,68 +24,93 @@ Blanchfield defines five types of anonymity:
     }
 \end{enumerate}
 
-We will use these definitions throughout the paper.
+We will borrow these definitions throughout the paper.
 
 \section{FreeNet}
 
-In his paper “A Distributed Decentralised Information Storage and Retrieval System” ~\cite{freenet},
-Ian Clarke describes a system which he calls “FreeNet”. FreeNet is a distributed, peer-to-peer web
+In his paper ``A Distributed Decentralised Information Storage and Retrieval System'' ~\cite{freenet},
+Ian Clarke describes a system which he calls ``FreeNet''. FreeNet is a distributed, peer-to-peer web
 serving system providing document anonymity, author anonymity, and reader anonymity.
 
 FreeNet does not provide any means for censorship. Instead, content on the network is given a
-“time to live” value. After this time expires, the content is removed from the network.
+time to live'' value. After this time expires, the content is removed from the network.
 
 \section{Tor, The Onion Router}
 
 Tor ~\cite{tor} is a peer-to-peer web serving network which provides user privacy against web traffic analysis.
 It aims to protect its users from malicious third parties analysing their web traffic and using it to
 profile users or make assumptions about their browsing habits. It does this through multi-hop routing,
-which they refer to as “onion routing”.
+which they refer to as ``onion routing''.
 
-Tor takes a strong anti-censorship position. As a consequence, Tor is known to be used for hosting various
-illegal content.
+Tor takes a strong anti-censorship position. As a consequence, Tor is left unmoderated and is known
+to be used for various illegal activities.
 
 \section{Kademlia}
 
-Kademlia ~\cite{kademlia} is a decentralised Distributed Hash Table. It provides a peer-to-peer,
-distributed key-value storage network. Data (the `value') can be stored at a network index (called the `key')
-and a subsequent request for this key will return this value. Users are identified by a numeric user ID, and
-these users store data with keys that are numerically close to this user ID.
+Kademlia ~\cite{kademlia} is a decentralised Distributed Hash Table (DHT). It provides a peer-to-peer,
+distributed key-value storage network. Data (the `value') can be stored at a network index (called the `key').
+Subsequent requests for this key will retrieve this value from users (nodes) on the network.
+Users are identified by a numeric user ID, and these users store data with keys that are numerically
+close to their own user ID.
 
-Kademlia supports automatic data replication, depending on a global network constant value, called the `replication
-constant'. As users join and leave the network, content is automatically distributed to the users that have user IDs
-closest to the numeric `key' value for data.`
+Kademlia supports automatic data replication. Data is replicated to a number of nodes on the network depending
+on a global network constant value, called the `replication constant'.
+As users join and leave the network, content is automatically distributed to the users that have user IDs
+closest to the numeric `key' value for data to ensure that data is not lost.
 
 Kademlia sends queries through its peer-to-peer network in parallel, according to a global network constant value
-referred to as \(\alpha\) (`alpha'). When a user receives a request for a certain key, K, it forwards the request to the
+referred to as \(\alpha\) (alpha). When a user receives a request for a certain key, K, it forwards the request to the
 \(\alpha\) number of closest user IDs that it knows of. In this way, messages intended to be sent to a certain user ID
 are flooded through the network until they reach their intended destination.
 
 \section{BitTorrent}
 
 BitTorrent is a distributed, peer-to-peer file-sharing system ~\cite{torrent}. While BitTorrent is not specifically a
-web-serving network, it is a useful example.
+web-serving network, it is a useful example of a popular decentralised data storage system.
 
-On a BitTorrent network, users voluntarily choose content to download. Once portions of data have been
-downloaded to a user, they then can provide that content to other users of the network.
+On a BitTorrent network, users voluntarily choose to download content from other users (peers) on the network.
+Once portions of data have been retriever from the network, this user can then provide that content to other
+users of the network.
 
-Information about content locations are found using a Kademlia-based network, called KAD ~\cite{torrentkad}. Though
-content locations in a BitTorrent network are found through the decentralised KAD network,
-data transfers are done directly from user to user instead of over the KAD network.
+In recent BitTorrent implementations, information about content locations are found using a Kademlia-based network,
+called KAD ~\cite{torrentkad}. Though content locations in a BitTorrent network are found through the decentralised
+KAD network, data transfers are done directly from user to user instead of over the KAD network.
 
-There is no redundancy or reliability built into BitTorrent. Content only stays on a BitTorrent network while
+There is no redundancy or reliability built into the BitTorrent protocol. Content only stays on a BitTorrent network while
 users interested in sharing that content remain on the network.
 
 \section{Elite}
 
-“Elite” is an anonymous, decentralised search engine described by Kilian Levacher in his paper
-“Elite, An Ethical Peer-to-Peer Search Engine” ~\cite{levacher}. Elite aims to allow users to hold their own data
-instead of it being held by third party search engine providers.
+``Elite'' is an anonymous, decentralised search engine described by Kilian Levacher in his paper
+``Elite, An Ethical Peer-to-Peer Search Engine'' ~\cite{levacher}. Elite aims to allow users to hold their
+personal data, avoiding user data being held by third party search engine providers.
+Levacher aims to enable users to ``democratically make decisions about how information is managed on the system''.
+This ideal is related to our goal for community-driven censorship.
 
 Elite has several interesting design ideas that are of interest to this project:
-\begin{itemize}
-    \item{Query anonymity through random id replacement}
-    \item Human browsing habits to evaluate content (similar to our downvote model)
-    \item Wants ability for censorship - quote "enabling peers to democratically make decisions about how information is managed on the system"
-    \item Ripple effect - which we can adapt to help with our censorship model
-\end{itemize}
+
+\subsection{Query Anonymity}
+
+To ensure query anonymity, Elite users randomly change the source user ID number to their own. Then, when that user
+receives a response to this query, they then forward the message to the original user that requested it. This means
+that any user that wishes to monitor traffic passing through the network can not accurately determine the true
+origin of a request for data.
+
+We can use this technique in our system to enhance query anonymity in the network.
+
+\subsection{Human browsing habits as a content-rating system}
+
+Elite uses the browsing habits of its users to determine the rating of a page in the system. Levacher argues that
+pages that are often accessed by users are of a higher quality than those that are accessed less often. This
+allows Elite to use its users to rate the quality of web-pages.
+
+We can adapt this technique to determine the quality of web-pages stored in our system also.
+
+\subsection{Recommendation``Ripple Effect''}
+
+Levacher describes the ``Ripple Effect'' as a way that recommendations can ``ripple'' through the system. When users
+want to recommend a web-page, they send a ``ripple'' recommendation message to their peers. If their peers agree with
+this recommendation, they can choose to forward it to their peers also, thus causing a ``ripple'' of recommendations
+being flooded through the system.
+
+It may be possible to take inspiration from this idea when designing our community-driven censorship model.
