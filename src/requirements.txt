@@ -1,0 +1,6 @@
+To be installed from pip:
+    pycrpto
+    autobahn
+
+To be installed separately (apt-get on Debian/Ubuntu systems; other OSes vary)
+    python-twisted-core
