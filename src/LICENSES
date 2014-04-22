@@ -1,0 +1,24 @@
+Since this project contains forks of several other projects, the licenses will be listed as follows:
+
+websocket-node.py
+=================
+
+Released under the Apache license, Version 2.0 due to licensing on original code.
+Please see LICENSE-APACHE.
+
+pydht
+=====
+
+Released under the 2-clause BSD license due to licensing on original code.
+Please see LICENSE-BSD-2-CLAUSE.
+
+pydht/key_derivation.py
+=======================
+
+Released into the public domain.
+
+all other source files without explicit licenses mentioned
+==========================================================
+
+Released under the Apache license, Version 2.0.
+Please see LICENSE-APACHE.
