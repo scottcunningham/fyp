@@ -8,19 +8,19 @@ describes a novel anonymous peer-to-peer network.
 Blanchfield defines five types of anonymity:
 \begin{enumerate}
     \item{Author anonymity: \\
-        A user can not be linked to a document which they have created.
+        A user should not be able to be linked to a document which they have created.
     }
     \item{Publisher anonymity: \\
-        A user can not be linked to a document which they have added to the network.
+        A user should not be able to be linked to a document which they have added to the network.
     }
     \item{Reader anonymity: \\
-        A user can not be linked to a request to read a document in the network.
+        It should be impossible to tell which documents a user on the network is reading.
     }
     \item{Server anonymity: \\
-        A user can not be linked to documents that they are storing.
+        A user should not be able to be linked to documents they store.
     }
     \item{Document anonymity: \\
-        A user can not know what documents that they are storing.
+        A user should not be able to know what documents they store.
     }
 \end{enumerate}
 
@@ -33,14 +33,15 @@ Ian Clarke describes a system which he calls ``FreeNet''. FreeNet is a distribut
 serving system providing document anonymity, author anonymity, and reader anonymity.
 
 FreeNet does not provide any means for censorship. Instead, content on the network is given a
-time to live'' value. After this time expires, the content is removed from the network.
+``time to live'' value. After this time expires, the content is removed from the network. This serves
+to remove unused content from the network.
 
 \section{Tor, The Onion Router}
 
-Tor ~\cite{tor} is a peer-to-peer web serving network which provides user privacy against web traffic analysis.
+Tor is a peer-to-peer web serving network which provides user privacy against web traffic analysis.
 It aims to protect its users from malicious third parties analysing their web traffic and using it to
 profile users or make assumptions about their browsing habits. It does this through multi-hop routing,
-which they refer to as ``onion routing''.
+which they refer to as ``onion routing'' ~\cite{tor}.
 
 Tor takes a strong anti-censorship position. As a consequence, Tor is left un-moderated and is known
 to be used for various illegal activities.
@@ -69,7 +70,7 @@ BitTorrent is a distributed, peer-to-peer file-sharing system ~\cite{torrent}. W
 web-serving network, it is a useful example of a popular decentralised data storage system.
 
 On a BitTorrent network, users voluntarily choose to download content from other users (peers) on the network.
-Once portions of data have been retriever from the network, this user can then provide that content to other
+Once portions of data have been retrieved from the network, this user can then provide that content to other
 users of the network.
 
 In recent BitTorrent implementations, information about content locations are found using a Kademlia-based network,
@@ -114,3 +115,20 @@ this recommendation, they can choose to forward it to their peers also, thus cau
 being flooded through the system.
 
 It may be possible to take inspiration from this idea when designing our community-driven censorship model.
+
+\section{Stack Overflow}
+
+Stack Overflow is a technical questions-and-answers web-site that features
+community-driven content rating. Stack Overflow is a web-site where users can submit
+questions about a topic, and other users can answer these questions. The quality
+of answers is rated by users through a simple ``up-vote'' and ``down-vote'' system, where an
+``up-vote'' is used to express that a user believes that this answer is helpful,
+and a ``down-vote'' is used when a user believes that an answer is inappropriate or incorrect
+~\cite{stackoverflow}.
+The quality of an answer is assessed by its overall down-vote count subtracted
+from its overall up-vote count. Answers are then sorted according to this
+quality metric, and the answers are ordered by their score. In this way, the
+Stack Overflow community decides which answers are appropriate and most worthwhile,
+and their consensus decides whether answers are shown or hidden from view.
+
+We can borrow this ``down-vote''-based content-rating metric and adapt it to be used in our own system.

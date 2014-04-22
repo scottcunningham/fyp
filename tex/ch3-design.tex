@@ -53,7 +53,7 @@ interface to publish and retrieve web-pages.
 
 Traffic tracking by ISPs can be done through analysing the destination address in an IP packet. To avoid this,
 the system should avoid direct connections between a reader and the user which holds the data that they are
-requesting. This is achieved through a multi-hop peer-to-peer network. This is used avoid direct connections
+requesting. This is achieved through a multi-hop peer-to-peer network. This is used to avoid direct connections
 between a user that hosts content and the user requesting that content. With no direct connections between
 the content provider and reader, malicious third parties that can analyse a user's web traffic can not make
 accurate assumptions about what content a user is viewing based on the other users that they connect to.
@@ -159,9 +159,9 @@ This concept is demonstrated in figure \ref{fig:sender_id}.
 \subsection{Data Storage}
 
 
-In order to preserve document anonymity, a user holding some data must not know what the data they that are storing represents.
-In the case of this system, this means that a user must not know what UUID a piece of data that they store represents.
-It is also necessary for a user to have no knowledge of the contents of the data that they store, so that they can not be held
+In order to preserve document anonymity, a user holding some data must not know what the data that they are storing represents.
+In the case of this system, this means that a user must not know the UUID of said data.
+It is also necessary for a user to have no knowledge of the contents of this data, so that they can not be held
 responsible for the actions of other users of the system.
 
 Since content can not be held by its author in order to provide author anonymity, it is important that the legitimacy of stored
@@ -226,7 +226,7 @@ We use Kademlia's built-in replication system to provide full document replicati
 
 \subsection{Censorship}
 
-To provide community-driven censorship, the system must allow the users to make decide on the censorship of content
+To provide community-driven censorship, the system must allow the users to decide on the censorship of content
 on the system.
 
 We will now discuss the difficulties associated with community consensus in a decentralised network and explain the
@@ -324,8 +324,9 @@ figure \ref{fig:retrievalalgo}.
 
 \subsection{Web-page publishing}
 
-To publish a web-page with some web-content ``content'', the user must generate a random UUID. From the UUID, the user
-then derive the content location using the hash function, and the encryption and MAC keys using the key derivation function.
+To publish a web-page, the user must generate a random UUID.
+From the UUID, the user then derives the content location using the hash function,
+and the encryption and MAC keys using the key derivation function.
 They then generate a MAC of the data and the key, and store both of these values at the given content location
 in the Kademlia network. This is demonstrated in figure \ref{fig:publishalgo}.
 
@@ -386,12 +387,13 @@ those with very large aggregate down-votes. A listing of the algorithm can be fo
 
 Since content is replicated across several nodes on the network by Kademlia, a malicious user would need to send sufficient
 down-vote requests to all replicas responsible for some content to completely remove it from the network.
-At every second the TTL is decreased by a logarithmic function of the number of down-votes, given as: \\
-$ TTL = TTL - log2(down-votes) $.
+At every second, if a web-page's aggregate score is below zero, then the TTL is decreased by a logarithmic
+function of the aggregate score of that web-page, given as:
+\[ TTL \leftarrow TTL - log2(absolute\_value(aggregate\_score)) \] 
 Thus, the number of down-votes required to remove this content from the network from one replica immediately
-(assuming that all requests hit the same replica) would be $ 2^{TTL} $, as $ TTL - log2(2^{TTL}) = TTL - TTL = 0 $.
-Since data is replicated in the network by a replication factor, this number becomes $ 2^{TTL} * R $, where $R$
-represents the number of replicas serving that piece of web content.
+(assuming that all requests hit the same replica) would be: $ 2^{TTL} $, as $ TTL - log2(2^{TTL}) = TTL - TTL = 0 $
+Since data is replicated in the network by a replication factor, this number becomes $ 2^{TTL} * R $
+where $R$ represents the number of replicas serving that piece of web content.
 This means that content that was recently added to the network (thus having a high TTL), will be difficult for one
 user to remove from the network by virtue of the large number of down-vote requests that they would have to make.
 This also assumes that no other user is accessing the content: indeed, if other users are accessing this web-page and

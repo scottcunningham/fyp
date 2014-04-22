@@ -2,6 +2,9 @@
 
 Notes and drafts of final year project.
 
-source is in src/
-report is in tex/
-demo is in demo/
+The project source code is in src/
+
+# GitHub
+
+This source can be found on my GitHub account at:
+https://github.com/scottcunningham/fyp

@@ -1,20 +1,4 @@
-\chapter{Conclusions \& Future Work}
-
-As mentioned in the Introduction to this report, the main goals of this report were
-to provide a decentralised web-serving network providing the following guarantees:
-
-\begin{enumerate}
-    \item{Decentralisation}
-    \item{Author Anonymity}
-    \item{Reader Privacy}
-    \item{Community-Driven Censorship}
-    \item{Increased Reliability and Redundancy}
-    \item{Secure Data Storage}
-\end{enumerate}
-
-These goals were met, and a successful and functional prototype of a peer-to-peer
-network was developed, as well as a minimal user-facing front-end which would allow
-users to easily interface with the network.
+\chapter{Future Work}
 
 We will now discuss possible future developments for this project, mentioning the most
 interesting areas for improvement.
@@ -34,9 +18,11 @@ project was done.
 \section{Cryptography}
 
 Further research into the cryptography used by the system could prove useful.
-As homomorphic encryption is developed further and becomes a more viable technology to be
-used in real-time, it could be used to transform encrypted data in transit between nodes,
-meaning that all of the messages between users could remain totally encrypted.
+Homomorphic encryption is currently not a feasible approach to this problem due to
+the complexity involved in using it. As it is developed further and extended to work
+in real-time, it could be used to transform encrypted data in transit between nodes.
+This could allow for a more optimal encryption scheme for messages between
+users on the network.
 
 \section{Exploits}
 
@@ -71,12 +57,44 @@ very interesting. Some large, distributed data-stores that have been developed i
 ``Big Data'' industry, such as Google's GFS use a ``sharding'' technique, where stored data
 is split into ``chunks'' of a particular size and these chunks are distributed across storage
 nodes in the network ~\cite{gfs}. These chunks could be partially redundant: one could imagine a system with
-$N$ chunks, where only $N-2$ (for example) chunks would be necessary to re-assemble
+$N+2$ chunks (for example), where only $N$ chunks would be necessary to re-assemble
 the original piece of data. This would also save on disk space, and make exploits
 on the system more difficult as no single user holds an entire web-page.
 
-\section{Closing}
+\chapter{Conclusions}
 
-In conclusion, the system designed in this project provides a functional
-proof-of-concept prototype of a secure, anonymous web-serving network with community-driven
-censorship.
+As mentioned in the Introduction to this report, the main goals of this report were
+to provide a decentralised web-serving network providing the following guarantees:
+
+\begin{enumerate}
+    \item{Decentralisation}
+    \item{Author Anonymity}
+    \item{Reader Privacy}
+    \item{Community-Driven Censorship}
+    \item{Increased Reliability and Redundancy}
+    \item{Secure Data Storage}
+\end{enumerate}
+
+These goals were met, and a successful and functional prototype of a peer-to-peer
+network was developed. As well as this, a prototype user-facing front-end which would allow
+users to easily interface with the network.
+
+The project was also successful in these other ways:
+
+\begin{enumerate}
+	\item { The project implementation was written in a popular, cross-platform programming
+	language, Python. Apart from the Linux-specific shell scripts used exclusively for
+	project demonstrations, the rest of the client implementation should run on any platform
+	which runs Python. This means that the application should run on all popular operating systems,
+	widening the possible scope for further development and usage of the project.
+	}
+
+	\item{ The web-socket-based ``front-end'' node described in the Implementation section of
+	this report allows for user-facing clients to be written in any programming language
+	which supports web-sockets and JSON message serialisation.
+	This could be used, for example, in an environment such as an Android mobile phone. 
+	In such a scenario,  a local Python application can be run
+	in the background, and a native Android front-end browsing application could communicate with
+	the Python node over web-sockets to access the underlying peer-to-peer network.
+	}
+\end{enumerate}

@@ -37,10 +37,11 @@ Entangled is released under the GNU General Public License, v3 (GPLv3).
 
 \subsection{``Kademlia'' Library}
 
-``Kademlia'' a Kademlia DHT implementation in Python. ``Kademlia'' seems to be well-documented and written,
-but as its first release first published after the beginning of this project, it was decided that it would be too unstable of
-a platform to begin working on. However, the library looks promising and it would be possible for it to be used in future projects
-once the code-base has become stable.
+``Kademlia'' is a Kademlia DHT implementation in Python. ``Kademlia'' seems to be well-documented and written,
+but as its first release was published after the beginning of this project, it was decided that it would be too unstable of
+a platform to base the project on.
+However, the library looks promising and it would be possible for it to be used in future projects once the code-base
+has become stable.
 
 ``Kademlia'' is released under the MIT license.
 
@@ -179,9 +180,10 @@ program source, demonstrating the down-vote algorithm's implementation.
 
 \begin{figure}[H]
 	\begin{lstlisting}
-for (uuid, downvotes) in self.downvotes.items():
-    downvote_val = math.log(downvotes, 2)
-    self.ttls[uuid] -= downvote_val
+for (uuid, rating) in self.webpage_ratings.items():
+	if rating < 0:
+	    downvote_val = math.log(rating, 2)
+	    self.ttls[uuid] -= downvote_val
 for (uuid, ttl) in self.ttls.items():
     if ttl <= 0:
         print "UUID", uuid, " past TTL - deleting"
@@ -208,7 +210,7 @@ The Python ``local node" provides the web-based front-end an interface to the Ka
 and then relays any requests to the underlying Kademlia network.
 
 The web-socket Python code was adapted from an example in the source code of the AutobahnPython project ~\cite{websocket}, which is released
-under the Apache license. 
+under the Apache license.
 
 \begin{figure}[H]
     \centering
@@ -216,3 +218,24 @@ under the Apache license.
     \caption{A diagram showing the system architecture, including the user-visible front-end.}
     \label{fig:arch-frontend}
 \end{figure}
+
+\subsection{Demonstration shell \& Python scripts}
+
+In order to demonstrate the running of the program, a shell script was included with the project in the
+file \texttt{src/demo.sh}.
+The script does the following:
+\begin{enumerate}
+    \item {Creates an initial node that starts the Kademlia-based network}
+    \item {Opens ten instances of the xterm terminal emulator which start other nodes
+        which then join the network. Messages received by these nodes from the network
+        are printed in real-time.}
+    \item {Opens a `front-end' node, which listens on a web-socket connection for the front-end.
+        This node also joins the Kademlia-based network as a normal user.}
+    \item {Opens the web front-end in the Firefox browser. A user can then store and retrieve
+        web-pages in the network, and down-vote them.}
+\end{enumerate}
+
+This shell script is designed to run on GNU/Linux and has not been tested in other environments.
+
+As well as this shell script, two files \texttt{create\_network.py} and \texttt{join\_network.py}
+are provided to create a network and join nodes to it.
