@@ -367,7 +367,7 @@
   \centerline{\ }
   \centerline{Supervisor: Prof. Stephen Barrett}
   \centerline{\ }
-  \centerline{Trinity College, Dublin}
+  \centerline{The University of Dublin, Trinity College}
   \centerline{April 2014}
   \setcounter{footnote}{0}
   }

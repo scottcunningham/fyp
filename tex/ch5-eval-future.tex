@@ -1,5 +1,82 @@
-\chapter{Evaluation \& Future Work}
+\chapter{Conclusions \& Future Work}
 
-hello 
+As mentioned in the Introduction to this report, the main goals of this report were
+to provide a decentralised web-serving network providing the following guarantees:
 
-exploits: mac and crypto
+\begin{enumerate}
+    \item{Decentralisation}
+    \item{Author Anonymity}
+    \item{Reader Privacy}
+    \item{Community-Driven Censorship}
+    \item{Increased Reliability and Redundancy}
+    \item{Secure Data Storage}
+\end{enumerate}
+
+These goals were met, and a successful and functional prototype of a peer-to-peer
+network was developed, as well as a minimal user-facing front-end which would allow
+users to easily interface with the network.
+
+We will now discuss possible future developments for this project, mentioning the most
+interesting areas for improvement.
+
+\section{Censorship}
+
+It was determined, however, that there was a trade-off to be made between complete
+reader anonymity and accurate censorship. Indeed, if all requests made in the network
+are entirely anonymous, then it becomes difficult to prevent abuse by users that
+aim to force censorship on certain content. The design of the content-removal algorithm
+proposed in Chapter 3 of this report aims to mitigate this possibility for abuse
+by using a logarithmic algorithm for content removal. For future work in this
+topic, it would be useful to experiment with this algorithm and the values used by
+it on a large-scale, which was unfortunately not possible in the short period in which this
+project was done.
+
+\section{Cryptography}
+
+Further research into the cryptography used by the system could prove useful.
+As homomorphic encryption is developed further and becomes a more viable technology to be
+used in real-time, it could be used to transform encrypted data in transit between nodes,
+meaning that all of the messages between users could remain totally encrypted.
+
+\section{Exploits}
+
+It would be particularly interesting to investigate possible exploits present in the
+system. One such exploit is related to the use of a symmetric-key for encryption,
+decryption and MAC calculations. Since this symmetric key is given to users that read
+some data on the network, it would be possible for arbitrary users to calculate new
+MAC values for data that they retrieve. This attack would only be useful if a user
+knew the UUID of a web-page that they wished to exploit, which means that it could
+not be performed by a user to exploit the data that they hold, simply because they
+would need to brute-force reverse a known content location to a UUID, which would
+require for SHA-1 an average of $2^{160} / 2$ SHA-1 calculations.
+This potential exploit could be remedied by the use of some cryptographic scheme where
+readers would decrypt with a public key, and authors would encrypt (and calculate MACs)
+with a different private key.
+
+\section{User Interface}
+
+For realistic use of the system, a more full-featured user front-end would be required.
+While the current prototype works well for single pages, a full alternative web-browser
+or browser plugin would provide a much better user experience and would allow for easy
+inter-page linking and the embedding of content within other pages (such as external
+CSS or JavaScript files). The current front-end only provides a prototype, and extra
+time spent developing a user-facing application would be useful. Still, the prototype
+front-end developed was not the main focus of the project, and the prototype works
+well.
+
+\section{Partial File Replication}
+
+More research info the possibility for partial file replication could prove to be
+very interesting. Some large, distributed data-stores that have been developed in the
+``Big Data'' industry, such as Google's GFS use a ``sharding'' technique, where stored data
+is split into ``chunks'' of a particular size and these chunks are distributed across storage
+nodes in the network ~\cite{gfs}. These chunks could be partially redundant: one could imagine a system with
+$N$ chunks, where only $N-2$ (for example) chunks would be necessary to re-assemble
+the original piece of data. This would also save on disk space, and make exploits
+on the system more difficult as no single user holds an entire web-page.
+
+\section{Closing}
+
+In conclusion, the system designed in this project provides a functional
+proof-of-concept prototype of a secure, anonymous web-serving network with community-driven
+censorship.

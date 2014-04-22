@@ -45,12 +45,9 @@
 }
 
 %% stolen from the mitthesis suite
-\typein [\files]{Enter file names to process, (frontmatter,intro,
-  ...), or `all' to process all files:} 
 \def\all{all} 
 \ifx\files\all
-\typeout{Including all files.} \else \typeout{Including only \files.}
-\includeonly{\files} 
+\includeonly{\all} 
 \fi 
 
 % Table of contents max depth listed:

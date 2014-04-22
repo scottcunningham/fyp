@@ -28,7 +28,7 @@ We will discuss the available implementations and their relative advantages and 
 
 Entangled is a working implementation of the Kademlia DHT written in Python. It provides a high-level programming interface and
 a graphical interface for interfacing with the Kademlia network with the ability to demonstrate file-sharing graphically.
-Entangled also includes an extra ``delete'' RPC which could be easily modified to serve the purpose of the ``downvote'' RPC
+Entangled also includes an extra ``delete'' RPC which could be easily modified to serve the purpose of the ``down-vote'' RPC
 that our system requires. However, Entangled lacks comprehensive documentation and has a complicated API.
 Entangled's code-base is complicated and difficult to understand in places. For this reason, it was decided that Entangled
 was not suitable to be used for this system.
@@ -180,7 +180,7 @@ program source, demonstrating the down-vote algorithm's implementation.
 \begin{figure}[H]
 	\begin{lstlisting}
 for (uuid, downvotes) in self.downvotes.items():
-    downvote_val = math.log(downvotes, 2cd \)
+    downvote_val = math.log(downvotes, 2)
     self.ttls[uuid] -= downvote_val
 for (uuid, ttl) in self.ttls.items():
     if ttl <= 0:
@@ -200,14 +200,14 @@ interfaces with the modified Kademlia network. We will now discuss both of these
 
 The browser code consists of a simple HTML page which provides inputs for users to open pages for a given UUID, to publish pages,
 and to down-vote a page that is currently loaded. The page uses JavaScript to draw requested pages to a section of the browser screen,
-sending requests to a local Python interface to the Kademlia network using the JSON serialisation format over a WebSocket connection.
+sending requests to a local Python interface to the Kademlia network using the JSON serialisation format over a web-socket connection.
 
 \subsubsection{Local node - \texttt{websocket-node.py}}
 
-The Python ``local node" provides the web-frontend an interface to the Kademlia network. The node simply listens on a WebSocket connection
+The Python ``local node" provides the web-based front-end an interface to the Kademlia network. The node simply listens on a web-socket connection
 and then relays any requests to the underlying Kademlia network.
 
-The WebSocket Python code was adapted from an example in the source code of the AutobahnPython project ~\cite{websocket}, which is released
+The web-socket Python code was adapted from an example in the source code of the AutobahnPython project ~\cite{websocket}, which is released
 under the Apache license. 
 
 \begin{figure}[H]

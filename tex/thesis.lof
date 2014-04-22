@@ -1,16 +1,16 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Diagram demonstrating the use of a multi-hop peer-to-peer network to avoid user traffic tracking. Since user 100 contacts user 300 via user 200, no direct correlation between user 100 and user 300 can be made by a third party analysing user 100's traffic.}}{16}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Diagram of the derivation of the content-location and cryptographic key from a web-page UUID.}}{19}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Diagram demonstrating the usage of random sender ID replacement used to hide the origin of a data request.}}{20}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces A diagram showing the process through which an secure cipher-text (encrypted) message and Message Authentication Code for that message is derived from a plain-text (unencrypted) message.}}{22}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces A diagram showing the system architecture.}}{27}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Algorithm for retrieving web-page from network.}}{28}
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Algorithm for publishing web-page to network.}}{29}
-\contentsline {figure}{\numberline {3.8}{\ignorespaces Algorithm for calculating a web-pages new TTL, given its current rating and TTL.}}{32}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Diagram demonstrating the use of a multi-hop peer-to-peer network to avoid user traffic tracking. Since user 100 contacts user 300 via user 200, no direct correlation between user 100 and user 300 can be made by a third party analysing user 100's traffic.}}{15}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Diagram of the derivation of the content-location and cryptographic key from a web-page UUID.}}{18}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Diagram demonstrating the usage of random sender ID replacement used to hide the origin of a data request.}}{19}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces A diagram showing the process through which an secure cipher-text (encrypted) message and Message Authentication Code for that message is derived from a plain-text (un-encrypted) message.}}{21}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces A diagram showing the system architecture.}}{26}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Algorithm for retrieving web-page from network.}}{27}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Algorithm for publishing web-page to network.}}{28}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Algorithm for calculating a web-pages new TTL, given its current rating and TTL.}}{31}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Code listing demonstrating how an item is selected for deletion based on its downvote rating.}}{42}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces A diagram showing the system architecture, including the user-visible front-end.}}{44}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Code listing demonstrating how an item is selected for deletion based on its downvote rating.}}{41}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces A diagram showing the system architecture, including the user-visible front-end.}}{43}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

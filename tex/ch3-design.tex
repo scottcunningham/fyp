@@ -204,7 +204,7 @@ with since its creation by the content's author and is not reliable. This proces
     \centering
     \includegraphics[width=0.8\textwidth]{img/mac.png}
     \caption{A diagram showing the process through which an secure cipher-text (encrypted) message and Message
-    Authentication Code for that message is derived from a plain-text (unencrypted) message.}
+    Authentication Code for that message is derived from a plain-text (un-encrypted) message.}
     \label{fig:hmac}
 \end{figure}
 
@@ -253,10 +253,10 @@ it unsuitable for the community. Furthermore, if a user does visit a web-page th
 In light of this, we propose a mixture of Levacher's ``Zero-Input Recommendation System'' combined with a channel for users to
 report web-pages as unsuitable.
 We will allow users to send a notice of objection to a web-page, which we refer to as a ``down-vote''. This phrasing is in the
-style of StackOverflow ~\cite{stackoverflow}. If a user views a web-page and does not send a `down-vote' about this page, then the
+style of Stack Overflow ~\cite{stackoverflow}. If a user views a web-page and does not send a `down-vote' about this page, then the
 system assumes that a user does not object to the content and that the web-page is of high quality.
 
-\subsubsection{``Downvote''-based Censorship}
+\subsubsection{``Down-vote''-based Censorship}
 
 In our system, we propose that censorship be decided by the aggregate ``up-vote'' minus ``down-vote'' value,
 where ``up-votes'' are implicitly made when a user does not object to some content.
@@ -277,11 +277,11 @@ This makes it impossible for a user to tell whether they have received a down-vo
 If we never performed sender ID replacement to down-vote requests, it would compromise reader privacy for the user
 sending the down-vote request.
 
-This is mitigated by adding an extra field to down-vote messages: a ``downvote-uuid'', which is a randomly generated
+This is mitigated by adding an extra field to down-vote messages: a ``down-vote-UUID'', which is a randomly generated
 identifier with which a user can identify a particular down-vote request, and still perform random sender ID
-replacement on downvote requests. We argue that these do not compromise reader anonymity as there is no
-user-identifying information present in the downvote-uuid. If users receives several downvote requests
-with the same downvote-UUID, they can safely ignore it.
+replacement on down-vote requests. We argue that these do not compromise reader anonymity as there is no
+user-identifying information present in the down-vote-UUID. If users receives several down-vote requests
+with the same down-vote-UUID, they can safely ignore it.
 
 \section{System Design Overview}
 
@@ -374,20 +374,20 @@ Conversely, low-rated pages will eventually be dropped from the network.
 Since down-vote messages are designed to be anonymous, it is possible for users to attempt to cheat the system and
 down-vote some content repeatedly until it is removed from the network. This can be stopped in the logic of the
 user's application, but this would be an unsatisfactory solution as it would be trivial for the user to circumvent this by
-modifing the source of their application, or building a customised client. As a result, there is a trade-off between absolute
+modifying the source of their application, or building a customised client. As a result, there is a trade-off between absolute
 anonymity and accurate censorship. We aim to mitigate abuse somewhat in the down-vote algorithm that we use, but our choice was 
 to prioritise anonymity over the possibility for abuse.
 
 To counter-act possible abuse by users of the system, our down-vote algorithm decreases a web-page's time-to-live only 
 logarithmically as its rating decreases. One per second, we decrease each web-page's time-to-live by a function of its
 aggregate rating. This function takes the logarithm of the aggregate rating and subtracts that value, in seconds,
-from that value's TTL. As a result, pages with few aggregate downvotes will decay from the network at a slower rate than
-those with very large aggregate downvotes. A listing of the algorithm can be found at figure \ref{fig:downvotealgo} for clarity.
+from that value's TTL. As a result, pages with few aggregate down-votes will decay from the network at a slower rate than
+those with very large aggregate down-votes. A listing of the algorithm can be found at figure \ref{fig:downvotealgo} for clarity.
 
 Since content is replicated across several nodes on the network by Kademlia, a malicious user would need to send sufficient
 down-vote requests to all replicas responsible for some content to completely remove it from the network.
 At every second the TTL is decreased by a logarithmic function of the number of down-votes, given as: \\
-$ TTL = TTL - log2(downvotes) $.
+$ TTL = TTL - log2(down-votes) $.
 Thus, the number of down-votes required to remove this content from the network from one replica immediately
 (assuming that all requests hit the same replica) would be $ 2^{TTL} $, as $ TTL - log2(2^{TTL}) = TTL - TTL = 0 $.
 Since data is replicated in the network by a replication factor, this number becomes $ 2^{TTL} * R $, where $R$
@@ -401,12 +401,12 @@ not down-voting it, more requests will be required.
     \begin{algorithm}[H]
         \caption{Calculate new TTL for a web-page, given parameters `rating' and `TTL'}
         \begin{algorithmic}
-        \IF { $ asdf $ }
-        \RETURN { $ 0 $ }
+        \IF { $ rating \ge 0 $ }
+        \RETURN { $ TTL $ }
         \ENDIF
         \STATE $ score \leftarrow absolute\_value(rating) $
-        \STATE $ ttl\_delta \leftarrow log2(score) $
-        \RETURN $ ttl - ttl\_delta $
+        \STATE $ TTL\_delta \leftarrow log2(score) $
+        \RETURN $ TTL - TTL\_delta $
         \end{algorithmic}
     \end{algorithm}
     \caption{Algorithm for calculating a web-pages new TTL, given its current rating and TTL.}
