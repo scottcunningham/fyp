@@ -15,7 +15,7 @@ sleep 10
 # Make another 10 join
 echo "Nodes opening in workspace 3"
 
-i3-msg "workspace 3"
+# i3-msg "workspace 3"
 for x in `seq 1 10`; do
     echo "Opening terminal for node"
     port=$(($port+1));
@@ -23,7 +23,7 @@ for x in `seq 1 10`; do
     sleep 2;
 done
 
-i3-msg "workspace 2"
+# i3-msg "workspace 2"
 xterm -e "python websocket-node.py" &
 
 sleep 8

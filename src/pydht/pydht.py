@@ -114,7 +114,7 @@ class DHT(object):
         self.id = id
         self.peer = Peer(unicode(host), port, id)
 
-	# Data and data decay data structures	
+	# Data and data decay data structures
         self.data = {}
         self.recent_downvotes = []
 	self.downvotes = {}
@@ -248,3 +248,4 @@ class DHT(object):
         for (uuid, ttl) in self.ttls.items():
 	    if ttl <= 0:
                 print "UUID", uuid, " past TTL - deleting"
+                del self.data[uuid]
