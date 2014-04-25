@@ -15,6 +15,9 @@ and then provide a description of system design and architecture.
 
 \section{Design Choices}
 
+In this section, we will discuss the design choices made to enable the goals of the system that
+were set out in the project introduction.
+
 \subsection{Author Anonymity}
 
 In order for an author of some web content to remain anonymous, they must not have any connection
@@ -36,7 +39,7 @@ corresponding ``content location'', which will be a numeric identifier. This ``c
 serve as an index into the storage space provided by users on the network. Users will store content which
 is numerically close to their ``node ID''.
 
-\subsubsection{Anonymity}
+\subsubsection{How to Enable Author Anonymity}
 
 Author anonymity can be achieved by distributing an author's content to be stored by other users in the network.
 This way, users that wish to read content written by a certain author do not make any direct connections to
@@ -49,7 +52,7 @@ interface to publish and retrieve web-pages.
 
 \subsection{Reader Privacy}
 
-\subsubsection{Traffic Analysis}
+\subsubsection{Avoiding Traffic Analysis}
 
 Traffic tracking by ISPs can be done through analysing the destination address in an IP packet. To avoid this,
 the system should avoid direct connections between a reader and the user which holds the data that they are
@@ -132,8 +135,7 @@ a user is consuming or what UUID this encrypted data represents.
 \end{figure}
 
 
-\subsubsection{Random sender ID replacement}
-
+\subsubsection{Random Sender ID Replacement for Query Anonymity}
 
 It is possible for a malicious user to join the network with the intention of analysing the
 sender and destination ID fields in packets that they route through the network. All content request
@@ -240,7 +242,7 @@ Censorship on a web-page can also not be decided by the author of some content a
 have their content censored by the community.
 We propose that the censorship of web-pages should be done by the users that hold that web-page data.
 
-\subsubsection{User-based content evaluation}
+\subsubsection{User-based Content Evaluation}
 
 In ``Elite'', Levacher claims that users tend to browse web content that they are generally interested in.
 He also argues that if a page is frequently viewed, then it must be of high-quality.
@@ -256,7 +258,7 @@ We will allow users to send a notice of objection to a web-page, which we refer 
 style of Stack Overflow ~\cite{stackoverflow}. If a user views a web-page and does not send a `down-vote' about this page, then the
 system assumes that a user does not object to the content and that the web-page is of high quality.
 
-\subsubsection{``Down-vote''-based Censorship}
+\subsubsection{``Down-vote''-Based Censorship}
 
 In our system, we propose that censorship be decided by the aggregate ``up-vote'' minus ``down-vote'' value,
 where ``up-votes'' are implicitly made when a user does not object to some content.
@@ -268,7 +270,7 @@ the same reason. Web-pages will be given a time-to-live value (TTL), which deter
 be deleted from the system. Web-page accesses (implicit ``up-votes'') will increase this
 TTL, whereas ``down-votes'' will decrease this value, meaning that content will be removed from the network sooner.
 
-\subsubsection{Problems caused by Kademlia's $\alpha$-parallelism}
+\subsubsection{Problems Caused by Kademlia's $\alpha$-Parallelism}
 
 Since the Kademlia network sends messages in parallel to the $\alpha$ closest nodes to a particular destination user ID,
 it is entirely possible that a user may receive a single down-vote request twice. This is made worse by the
@@ -295,7 +297,7 @@ with the same down-vote-UUID, they can safely ignore it.
 The system consists of several users (``nodes'') on a Kademlia network. There are three main actions that a user can perform,
 with the necessary parameters in brackets:
 
-\subsection{Web-page retrieval and verification}
+\subsection{Web-page Retrieval and Verification}
 
 To retrieve a web-page for a given UUID, the user must derive the content location from the UUID using the hash function,
 and encryption key and MAC key from the UUID using the Key Derivation Function. They must then retrieve the encrypted data
@@ -322,7 +324,7 @@ figure \ref{fig:retrievalalgo}.
     \label{fig:retrievalalgo}
 \end{figure}
 
-\subsection{Web-page publishing}
+\subsection{Web-page Publishing}
 
 To publish a web-page, the user must generate a random UUID.
 From the UUID, the user then derives the content location using the hash function,

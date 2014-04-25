@@ -193,18 +193,18 @@ for (uuid, ttl) in self.ttls.items():
     \label{fig:code-downvote}
 \end{figure}
 
-\subsection{User-facing front-end}
+\subsection{User-facing Front-end}
 
 As mentioned previously, the front-end is made up of of a JavaScript and HTML web-based front-end, and a Python program which
 interfaces with the modified Kademlia network. We will now discuss both of these.
 
-\subsubsection{Browser code - \texttt{websocket-client.html}}
+\subsubsection{Browser Code - \texttt{websocket-client.html}}
 
 The browser code consists of a simple HTML page which provides inputs for users to open pages for a given UUID, to publish pages,
 and to down-vote a page that is currently loaded. The page uses JavaScript to draw requested pages to a section of the browser screen,
 sending requests to a local Python interface to the Kademlia network using the JSON serialisation format over a web-socket connection.
 
-\subsubsection{Local node - \texttt{websocket-node.py}}
+\subsubsection{Local Node - \texttt{websocket-node.py}}
 
 The Python ``local node" provides the web-based front-end an interface to the Kademlia network. The node simply listens on a web-socket connection
 and then relays any requests to the underlying Kademlia network.
@@ -219,7 +219,7 @@ under the Apache license.
     \label{fig:arch-frontend}
 \end{figure}
 
-\subsection{Demonstration shell \& Python scripts}
+\subsection{Demonstration Shell \& Python Scripts}
 
 In order to demonstrate the running of the program, a shell script was included with the project in the
 file \texttt{src/demo.sh}.

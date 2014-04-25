@@ -5,7 +5,7 @@ interesting areas for improvement.
 
 \section{Censorship}
 
-It was determined, however, that there was a trade-off to be made between complete
+It was determined over the course of the project that there was a trade-off to be made between complete
 reader anonymity and accurate censorship. Indeed, if all requests made in the network
 are entirely anonymous, then it becomes difficult to prevent abuse by users that
 aim to force censorship on certain content. The design of the content-removal algorithm
@@ -18,7 +18,7 @@ project was done.
 \section{Cryptography}
 
 Further research into the cryptography used by the system could prove useful.
-Homomorphic encryption is currently not a feasible approach to this problem due to
+Homomorphic encryption, for example, is currently not a feasible approach to this problem due to
 the complexity involved in using it. As it is developed further and extended to work
 in real-time, it could be used to transform encrypted data in transit between nodes.
 This could allow for a more optimal encryption scheme for messages between
@@ -61,6 +61,15 @@ $N+2$ chunks (for example), where only $N$ chunks would be necessary to re-assem
 the original piece of data. This would also save on disk space, and make exploits
 on the system more difficult as no single user holds an entire web-page.
 
+\section{Other Applications Based on this System}
+
+It would be interesting to research other possible uses apart from web-serving for the goals
+achieved in the design of this system. For example, it would be possible
+to adapt the system to serve as the base for an anonymous micro-blogging platform where
+user consensus was used to prioritise highly-rated content over poorly-rated content.
+In such a system, the global default ``TTL'' could be set to a low value, such as
+one hour, and thus only a small amount of the most popular content would remain on the network.
+
 \chapter{Conclusions}
 
 As mentioned in the Introduction to this report, the main goals of this report were
@@ -97,4 +106,27 @@ The project was also successful in these other ways:
 	in the background, and a native Android front-end browsing application could communicate with
 	the Python node over web-sockets to access the underlying peer-to-peer network.
 	}
+
+    \item{ While this project's main focus was on web-serving, the general principles behind
+            community-driven censorship could be used as a base for other types of systems
+            that would benefit from community censorship. For example, in our Future Work section,
+            we outline ways that the system could serve as a useful base for other applications,
+            such as an anonymous micro-blogging platform.
+                   }
 \end{enumerate}
+
+In answer to the questions set out in this paper's introduction, we conclude that based on the
+results of this project that:
+\begin{itemize}
+    \item Yes, it is possible to build censorship into our system design. Our system
+        implementation has demonstrated that this is possible, and achieves censorship
+        decided by community decision.
+    \item Yes, we can enable censorship by community consensus, but in our system design
+        this resulted in a trade-off between the accuracy of this censorship and the
+        anonymity of the users. In our system design, we chose to compromise the complete
+        accuracy of censorship in order to prioritise complete user anonymity, since user
+        anonymity was a primary goal in the system design. However, the system design does
+        make abuse difficult, so we argue that the system provides tolerably accurate
+        community-driven censorship while still retaining full user anonymity.
+\end{itemize}
+
